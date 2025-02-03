@@ -4,7 +4,9 @@ import { EditorProvider, UseEditorOptions } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { FC } from "react";
 import Tasks from "./extensions/Tasks";
+import Table from "./extensions/Table";
 import Image from "./extensions/Image";
+import Fonts from "./extensions/Fonts";
 import Toolbar from "@/app/documents/[docId]/(toolbar)/toolbar";
 import Underline from "@tiptap/extension-underline";
 // import { debounce } from "lodash";
@@ -23,8 +25,26 @@ interface Props {
 
 export const BaseEditor: FC<Props> = ({ autofocus, readonly }) => {
   const editorOptions = {
-    extensions: [StarterKit, Underline, ...Tasks, ...Image],
-    content: `<div>Hello World</div>`,
+    extensions: [StarterKit, Underline, ...Table, ...Image, ...Fonts, ...Tasks],
+    content: `
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th colspan="3">Description</th>
+            </tr>
+            <tr>
+              <td>Cyndi Lauper</td>
+              <td>Singer</td>
+              <td>Songwriter</td>
+              <td>Actress</td>
+            </tr>
+          </tbody>
+        </table>
+        <div>Text under the table</div>
+      </div>
+    `,
     immediatelyRender: false,
     autofocus,
     editable: !readonly,

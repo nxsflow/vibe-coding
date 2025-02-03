@@ -17,6 +17,8 @@ import {
 import ToolbarButton from "./toolbar-button";
 import { useCurrentEditor } from "@tiptap/react";
 import { Separator } from "@/components/ui/separator";
+import FontFamilyBtn from "./font-family-btn";
+import HeadingLevelBtn from "./heading-level-btn";
 
 interface Props {
   test?: string;
@@ -50,6 +52,8 @@ const Toolbar: FC<Props> = () => {
         },
       },
     ],
+    [FontFamilyBtn],
+    [HeadingLevelBtn],
     [
       {
         label: "Bold",
