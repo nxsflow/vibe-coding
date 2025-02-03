@@ -11,6 +11,7 @@ import Toolbar from "@/app/documents/[docId]/(toolbar)/toolbar";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Colors from "./extensions/Colors";
+import TextAlign from "@tiptap/extension-text-align";
 // import { debounce } from "lodash";
 // import { flow, replace, split, size } from "lodash/fp";
 // import { Dispatch, SetStateAction, useState } from "react";
@@ -35,6 +36,9 @@ export const BaseEditor: FC<Props> = ({ autofocus, readonly }) => {
         autolink: true,
         linkOnPaste: true,
         defaultProtocol: "https",
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
       }),
       ...Table,
       ...Image,

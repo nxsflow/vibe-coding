@@ -81,7 +81,7 @@ const HeadingLevelBtn = () => {
             className={cn(
               (value === 0 && !editor?.isActive("heading")) ||
                 (editor?.isActive("heading", { level: value }) &&
-                  "bg-neutral-200/80")
+                  "bg-neutral-50")
             )}
           >
             <span>{label}</span>

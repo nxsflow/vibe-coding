@@ -42,7 +42,7 @@ const FontFamilyBtn = () => {
             onClick={onChange(value)}
             className={cn(
               editor?.getAttributes("textStyle").fontFamily === value &&
-                "bg-neutral-200/80"
+                "bg-neutral-50"
             )}
             style={{ fontFamily: value }}
           >

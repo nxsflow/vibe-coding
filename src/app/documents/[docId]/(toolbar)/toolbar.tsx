@@ -3,6 +3,9 @@
 import { FC } from "react";
 import { Section } from "./types";
 import {
+  AlignCenterIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
   BoldIcon,
   ItalicIcon,
   ListTodoIcon,
@@ -79,6 +82,28 @@ const Toolbar: FC<Props> = () => {
       },
       TextColorBtn,
       HighlightColorBtn,
+    ],
+    [
+      {
+        label: "Align Left",
+        icon: AlignLeftIcon,
+        isActive:
+          !editor?.isActive({ textAlign: "center" }) &&
+          !editor?.isActive({ textAlign: "right" }),
+        onClick: () => editor?.chain().focus().setTextAlign("left").run(),
+      },
+      {
+        label: "Align Center",
+        icon: AlignCenterIcon,
+        isActive: editor?.isActive({ textAlign: "center" }),
+        onClick: () => editor?.chain().focus().setTextAlign("center").run(),
+      },
+      {
+        label: "Align Right",
+        icon: AlignRightIcon,
+        isActive: editor?.isActive({ textAlign: "right" }),
+        onClick: () => editor?.chain().focus().setTextAlign("right").run(),
+      },
     ],
     [
       LinkButton,
