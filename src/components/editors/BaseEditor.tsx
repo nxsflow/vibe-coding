@@ -3,6 +3,10 @@
 import { EditorProvider, UseEditorOptions } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { FC } from "react";
+import Tasks from "./extensions/Tasks";
+import Image from "./extensions/Image";
+import Toolbar from "@/app/documents/[docId]/(toolbar)/toolbar";
+import Underline from "@tiptap/extension-underline";
 // import { debounce } from "lodash";
 // import { flow, replace, split, size } from "lodash/fp";
 // import { Dispatch, SetStateAction, useState } from "react";
@@ -19,8 +23,8 @@ interface Props {
 
 export const BaseEditor: FC<Props> = ({ autofocus, readonly }) => {
   const editorOptions = {
-    extensions: [StarterKit],
-    content: `<div>Hello World!</div>`,
+    extensions: [StarterKit, Underline, ...Tasks, ...Image],
+    content: `<div>Hello World</div>`,
     immediatelyRender: false,
     autofocus,
     editable: !readonly,
@@ -41,7 +45,9 @@ export const BaseEditor: FC<Props> = ({ autofocus, readonly }) => {
           className:
             "min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0",
         }}
-      />
+      >
+        <Toolbar />
+      </EditorProvider>
     </div>
   );
 };
