@@ -29,6 +29,7 @@ import TextColorBtn from "./text-color-btn";
 import HighlightColorBtn from "./highlight-color-btn";
 import LinkButton from "./link-btn";
 import ImageBtn from "./image-btn";
+import FontSizeBtn from "./font-size-btn";
 
 interface Props {
   test?: string;

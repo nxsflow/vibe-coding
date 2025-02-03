@@ -1,9 +1,9 @@
 import { useCurrentEditor } from "@tiptap/react";
 import ToolbarDropdownContentButton from "./toolbar-dropdown-content-btn";
 import ToolbarDropdown from "./toolbar-dropdown";
-import ToolbarDropdownTrigger from "./toolbar-dropdown-trigger";
 import ToolbarDropdownContent from "./toolbar-dropdown-content";
 import { useState } from "react";
+import ToolbarDropdownTrigger from "./toolbar-dropdown-trigger";
 
 const FontFamilyBtn = () => {
   const { editor } = useCurrentEditor();

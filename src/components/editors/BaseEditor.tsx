@@ -3,15 +3,17 @@
 import { EditorProvider, UseEditorOptions } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { FC } from "react";
-import Tasks from "./extensions/Tasks";
-import Table from "./extensions/Table";
-import Image from "./extensions/Image";
-import Fonts from "./extensions/Fonts";
-import Toolbar from "@/app/documents/[docId]/(toolbar)/toolbar";
+import Tasks from "@/extensions/tasks";
+import Table from "@/extensions/table";
+import Image from "@/extensions/image";
+import Fonts from "@/extensions/fonts";
+import Toolbar from "@/components/toolbar/toolbar";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
-import Colors from "./extensions/Colors";
+import Colors from "@/extensions/colors";
 import TextAlign from "@tiptap/extension-text-align";
+import { FontSizeExtension } from "@/extensions/font-size";
+
 // import { debounce } from "lodash";
 // import { flow, replace, split, size } from "lodash/fp";
 // import { Dispatch, SetStateAction, useState } from "react";
@@ -40,6 +42,7 @@ export const BaseEditor: FC<Props> = ({ autofocus, readonly }) => {
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
+      FontSizeExtension,
       ...Table,
       ...Image,
       ...Fonts,
@@ -74,7 +77,7 @@ export const BaseEditor: FC<Props> = ({ autofocus, readonly }) => {
       attributes: {
         style: "padding-left: 56px; padding-right: 56px",
         class:
-          "focus:outline-none border print:border-0 bg-white border-neutral-400 flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text",
+          "focus:outline-none border print:border-0 bg-white border-slate-400 flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text",
       },
     },
   } as UseEditorOptions;
