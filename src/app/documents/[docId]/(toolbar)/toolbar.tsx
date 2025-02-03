@@ -22,6 +22,7 @@ import HeadingLevelBtn from "./heading-level-btn";
 import TextColorBtn from "./text-color-btn";
 import HighlightColorBtn from "./highlight-color-btn";
 import LinkButton from "./link-btn";
+import ImageBtn from "./image-btn";
 
 interface Props {
   test?: string;
@@ -81,6 +82,7 @@ const Toolbar: FC<Props> = () => {
     ],
     [
       LinkButton,
+      ImageBtn,
       {
         label: "Comment",
         icon: MessageSquarePlusIcon,
@@ -102,8 +104,8 @@ const Toolbar: FC<Props> = () => {
   ];
 
   return (
-    <div className="absolute top-0 left-0 w-full z-10 print:hidden">
-      <div className="bg-neutral-200/50 px-2.5 py-0.5 rounded-3xl min-h-10 flex items-center gap-x-0.5 overflow-x-auto">
+    <div className="fixed top-0 left-0 w-full z-10 print:hidden p-2">
+      <div className="bg-neutral-200/95 px-2.5 py-0.5 rounded-3xl min-h-10 flex items-center gap-x-0.5 overflow-x-auto">
         {sections.map((section, index) => (
           <div key={index} className="flex items-center gap-x-0.5">
             {index > 0 && (
