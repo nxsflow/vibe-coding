@@ -6,6 +6,7 @@ interface Props {
   style?: CSSProperties;
   className?: string;
   children?: ReactNode;
+  isActive?: boolean;
 }
 
 const ToolbarDropdownContentButton: FC<Props> = ({
@@ -13,10 +14,12 @@ const ToolbarDropdownContentButton: FC<Props> = ({
   className,
   onClick,
   style,
+  isActive,
 }) => (
   <button
     className={cn(
-      "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-50",
+      "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-100",
+      isActive && "bg-neutral-200",
       className
     )}
     onClick={onClick}

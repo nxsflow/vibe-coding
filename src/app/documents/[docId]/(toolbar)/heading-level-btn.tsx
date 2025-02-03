@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { useCurrentEditor } from "@tiptap/react";
 import { Heading, Levels } from "./types";
 import ToolbarDropdownContentButton from "./toolbar-dropdown-content-btn";
@@ -78,11 +77,10 @@ const HeadingLevelBtn = () => {
             key={value}
             onClick={onChange(value)}
             style={{ fontSize, fontWeight }}
-            className={cn(
+            isActive={
               (value === 0 && !editor?.isActive("heading")) ||
-                (editor?.isActive("heading", { level: value }) &&
-                  "bg-neutral-50")
-            )}
+              editor?.isActive("heading", { level: value })
+            }
           >
             <span>{label}</span>
           </ToolbarDropdownContentButton>

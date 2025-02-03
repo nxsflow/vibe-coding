@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { useCurrentEditor } from "@tiptap/react";
 import ToolbarDropdownContentButton from "./toolbar-dropdown-content-btn";
 import ToolbarDropdown from "./toolbar-dropdown";
@@ -40,10 +39,7 @@ const FontFamilyBtn = () => {
           <ToolbarDropdownContentButton
             key={value}
             onClick={onChange(value)}
-            className={cn(
-              editor?.getAttributes("textStyle").fontFamily === value &&
-                "bg-neutral-50"
-            )}
+            isActive={editor?.getAttributes("textStyle").fontFamily === value}
             style={{ fontFamily: value }}
           >
             <span className="text-sm">{label}</span>
