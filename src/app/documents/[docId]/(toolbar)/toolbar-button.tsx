@@ -7,8 +7,8 @@ const ToolbarButton: FC<BtnProps> = ({ onClick, isActive, icon: Icon }) => {
     <button
       onClick={onClick}
       className={cn(
-        "text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-50",
-        isActive && "bg-neutral-50"
+        "text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-slate-50",
+        isActive && "bg-slate-50"
       )}
     >
       <Icon className="size-4" />

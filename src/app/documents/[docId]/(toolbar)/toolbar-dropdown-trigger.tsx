@@ -18,7 +18,7 @@ const ToolbarDropdownTrigger: FC<ToolbarDropdownTriggerProps> = ({
     <DropdownMenuTrigger asChild>
       <button
         className={cn(
-          "h-7 shrink-0 flex items-center rounded-sm hover:bg-neutral-50 px-1.5 overflow-hidden text-sm",
+          "h-7 shrink-0 flex items-center rounded-sm hover:bg-slate-50 px-1.5 overflow-hidden text-sm",
           className
         )}
       >

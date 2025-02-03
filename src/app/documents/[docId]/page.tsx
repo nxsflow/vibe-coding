@@ -11,7 +11,7 @@ const DocumentId: FC<Props> = async () => {
   // const docId = (await params)?.docId;
 
   return (
-    <div className="min-h-screen bg-neutral-200">
+    <div className="min-h-screen bg-slate-200">
       <BaseEditor />
     </div>
   );

@@ -9,6 +9,8 @@ import {
   AlignRightIcon,
   BoldIcon,
   ItalicIcon,
+  ListIcon,
+  ListOrderedIcon,
   ListTodoIcon,
   MessageSquarePlusIcon,
   PrinterIcon,
@@ -123,6 +125,18 @@ const Toolbar: FC<Props> = () => {
         isActive: false,
       },
       {
+        label: "Bullet list",
+        icon: ListIcon,
+        isActive: editor?.isActive("bulletList"),
+        onClick: () => editor?.chain().focus().toggleBulletList().run(),
+      },
+      {
+        label: "Ordered list",
+        icon: ListOrderedIcon,
+        isActive: editor?.isActive("orderedList"),
+        onClick: () => editor?.chain().focus().toggleOrderedList().run(),
+      },
+      {
         label: "List Todo",
         icon: ListTodoIcon,
         onClick: () => editor?.chain().focus().toggleTaskList().run(),
@@ -138,14 +152,11 @@ const Toolbar: FC<Props> = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full z-10 print:hidden p-2">
-      <div className="bg-neutral-200/95 px-2.5 py-0.5 rounded-3xl min-h-10 flex items-center gap-x-0.5 overflow-x-auto">
+      <div className="bg-slate-200/95 px-2.5 py-0.5 rounded-3xl min-h-10 flex items-center gap-x-0.5 overflow-x-auto">
         {sections.map((section, index) => (
           <div key={index} className="flex items-center gap-x-0.5">
             {index > 0 && (
-              <Separator
-                orientation="vertical"
-                className="h-6 bg-neutral-300"
-              />
+              <Separator orientation="vertical" className="h-6 bg-slate-300" />
             )}
             {section.map((item) => {
               if (typeof item === "function") {

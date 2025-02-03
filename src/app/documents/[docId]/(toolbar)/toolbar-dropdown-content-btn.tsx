@@ -18,8 +18,8 @@ const ToolbarDropdownContentButton: FC<Props> = ({
 }) => (
   <button
     className={cn(
-      "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-100",
-      isActive && "bg-neutral-200",
+      "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-slate-100",
+      isActive && "bg-slate-200",
       className
     )}
     onClick={onClick}
