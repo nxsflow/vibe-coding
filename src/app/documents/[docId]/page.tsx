@@ -6,15 +6,13 @@ interface Props {
     docId?: string;
   }>;
 }
-const DocumentId: FC<Props> = async ({ params }) => {
-  const docId = (await params)?.docId;
+
+const DocumentId: FC<Props> = async () => {
+  // const docId = (await params)?.docId;
 
   return (
-    <div>
-      <h1>Document {docId}</h1>
-      <div>
-        <BaseEditor />
-      </div>
+    <div className="min-h-screen bg-neutral-200">
+      <BaseEditor />
     </div>
   );
 };
