@@ -4,9 +4,11 @@ import ToolbarDropdownContentButton from "./toolbar-dropdown-content-btn";
 import ToolbarDropdown from "./toolbar-dropdown";
 import ToolbarDropdownTrigger from "./toolbar-dropdown-trigger";
 import ToolbarDropdownContent from "./toolbar-dropdown-content";
+import { useState } from "react";
 
 const FontFamilyBtn = () => {
   const { editor } = useCurrentEditor();
+  const [open, setOpen] = useState(false);
 
   const fonts = [
     { label: "Inter", value: "Inter" },
@@ -21,8 +23,13 @@ const FontFamilyBtn = () => {
     { label: "Garamond", value: "Garamond" },
   ];
 
+  const onChange = (value: string) => () => {
+    editor?.chain().focus().setFontFamily(value).run();
+    setOpen(false);
+  };
+
   return (
-    <ToolbarDropdown>
+    <ToolbarDropdown {...{ open, onOpenChange: setOpen }}>
       <ToolbarDropdownTrigger className="w-32 justify-between">
         <span className="truncate">
           {editor?.getAttributes("textStyle").fontFamily || "Arial"}
@@ -32,7 +39,7 @@ const FontFamilyBtn = () => {
         {fonts.map(({ label, value }) => (
           <ToolbarDropdownContentButton
             key={value}
-            onClick={() => editor?.chain().focus().setFontFamily(value).run()}
+            onClick={onChange(value)}
             className={cn(
               editor?.getAttributes("textStyle").fontFamily === value &&
                 "bg-neutral-200/80"

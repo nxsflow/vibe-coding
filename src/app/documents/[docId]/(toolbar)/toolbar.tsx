@@ -21,6 +21,7 @@ import FontFamilyBtn from "./font-family-btn";
 import HeadingLevelBtn from "./heading-level-btn";
 import TextColorBtn from "./text-color-btn";
 import HighlightColorBtn from "./highlight-color-btn";
+import LinkButton from "./link-btn";
 
 interface Props {
   test?: string;
@@ -79,6 +80,7 @@ const Toolbar: FC<Props> = () => {
       HighlightColorBtn,
     ],
     [
+      LinkButton,
       {
         label: "Comment",
         icon: MessageSquarePlusIcon,

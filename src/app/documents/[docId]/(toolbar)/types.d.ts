@@ -9,9 +9,11 @@ type BtnProps = {
 
 type Section = Array<FC<> | (BtnProps & { label: string })>;
 
+type Levels = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
 type Heading = {
   label: string;
-  value: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  value: Levels;
   fontSize: string;
   fontWeight?: string;
 };

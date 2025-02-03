@@ -1,13 +1,15 @@
 import { cn } from "@/lib/utils";
 import { useCurrentEditor } from "@tiptap/react";
-import { Heading } from "./types";
+import { Heading, Levels } from "./types";
 import ToolbarDropdownContentButton from "./toolbar-dropdown-content-btn";
 import ToolbarDropdownContent from "./toolbar-dropdown-content";
 import ToolbarDropdown from "./toolbar-dropdown";
 import ToolbarDropdownTrigger from "./toolbar-dropdown-trigger";
+import { useState } from "react";
 
 const HeadingLevelBtn = () => {
   const { editor } = useCurrentEditor();
+  const [open, setOpen] = useState(false);
 
   const headings: Array<Heading> = [
     { label: "Normal text", value: 0, fontSize: "1rem" },
@@ -58,8 +60,15 @@ const HeadingLevelBtn = () => {
     return "Normal text";
   };
 
+  const onChange = (value: Levels) => () => {
+    if (value === 0) editor?.chain().focus().setParagraph().run();
+    else editor?.chain().focus().toggleHeading({ level: value }).run();
+
+    setOpen(false);
+  };
+
   return (
-    <ToolbarDropdown>
+    <ToolbarDropdown {...{ open, onOpenChange: setOpen }}>
       <ToolbarDropdownTrigger className="min-w-7 justify-center">
         <span className="truncate">{getCurrentHeading()}</span>
       </ToolbarDropdownTrigger>
@@ -67,11 +76,7 @@ const HeadingLevelBtn = () => {
         {headings.map(({ label, value, fontSize, fontWeight }) => (
           <ToolbarDropdownContentButton
             key={value}
-            onClick={() =>
-              value === 0
-                ? editor?.chain().focus().setParagraph().run()
-                : editor?.chain().focus().toggleHeading({ level: value }).run()
-            }
+            onClick={onChange(value)}
             style={{ fontSize, fontWeight }}
             className={cn(
               (value === 0 && !editor?.isActive("heading")) ||

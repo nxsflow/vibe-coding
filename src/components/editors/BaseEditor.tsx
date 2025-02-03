@@ -9,6 +9,7 @@ import Image from "./extensions/Image";
 import Fonts from "./extensions/Fonts";
 import Toolbar from "@/app/documents/[docId]/(toolbar)/toolbar";
 import Underline from "@tiptap/extension-underline";
+import Link from "@tiptap/extension-link";
 import Colors from "./extensions/Colors";
 // import { debounce } from "lodash";
 // import { flow, replace, split, size } from "lodash/fp";
@@ -29,6 +30,12 @@ export const BaseEditor: FC<Props> = ({ autofocus, readonly }) => {
     extensions: [
       StarterKit,
       Underline,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        linkOnPaste: true,
+        defaultProtocol: "https",
+      }),
       ...Table,
       ...Image,
       ...Fonts,
