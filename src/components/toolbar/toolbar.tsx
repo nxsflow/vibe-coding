@@ -65,6 +65,7 @@ const Toolbar: FC<Props> = () => {
     ],
     [FontFamilyBtn],
     [HeadingLevelBtn],
+    [FontSizeBtn],
     [
       {
         label: "Bold",
@@ -153,7 +154,7 @@ const Toolbar: FC<Props> = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full z-10 print:hidden p-2">
-      <div className="bg-slate-200/95 px-2.5 py-0.5 rounded-3xl min-h-10 flex items-center gap-x-0.5 overflow-x-auto">
+      <div className="bg-slate-200/95 px-2.5 py-0.5 rounded-3xl min-h-10 flex items-center gap-x-0.5 overflow-x-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent">
         {sections.map((section, index) => (
           <div key={index} className="flex items-center gap-x-0.5">
             {index > 0 && (
