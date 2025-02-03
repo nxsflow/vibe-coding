@@ -9,6 +9,7 @@ import Image from "./extensions/Image";
 import Fonts from "./extensions/Fonts";
 import Toolbar from "@/app/documents/[docId]/(toolbar)/toolbar";
 import Underline from "@tiptap/extension-underline";
+import Colors from "./extensions/Colors";
 // import { debounce } from "lodash";
 // import { flow, replace, split, size } from "lodash/fp";
 // import { Dispatch, SetStateAction, useState } from "react";
@@ -25,7 +26,15 @@ interface Props {
 
 export const BaseEditor: FC<Props> = ({ autofocus, readonly }) => {
   const editorOptions = {
-    extensions: [StarterKit, Underline, ...Table, ...Image, ...Fonts, ...Tasks],
+    extensions: [
+      StarterKit,
+      Underline,
+      ...Table,
+      ...Image,
+      ...Fonts,
+      ...Tasks,
+      ...Colors,
+    ],
     content: `
       <div>
         <table>

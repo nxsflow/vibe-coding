@@ -19,6 +19,8 @@ import { useCurrentEditor } from "@tiptap/react";
 import { Separator } from "@/components/ui/separator";
 import FontFamilyBtn from "./font-family-btn";
 import HeadingLevelBtn from "./heading-level-btn";
+import TextColorBtn from "./text-color-btn";
+import HighlightColorBtn from "./highlight-color-btn";
 
 interface Props {
   test?: string;
@@ -73,6 +75,8 @@ const Toolbar: FC<Props> = () => {
         isActive: editor?.isActive("underline"),
         onClick: () => editor?.chain().focus().toggleUnderline().run(),
       },
+      TextColorBtn,
+      HighlightColorBtn,
     ],
     [
       {
