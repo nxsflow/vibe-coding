@@ -4,6 +4,7 @@ import { FC } from "react";
 import { Section } from "./types";
 import {
   AlignCenterIcon,
+  AlignJustifyIcon,
   AlignLeftIcon,
   AlignRightIcon,
   BoldIcon,
@@ -89,7 +90,8 @@ const Toolbar: FC<Props> = () => {
         icon: AlignLeftIcon,
         isActive:
           !editor?.isActive({ textAlign: "center" }) &&
-          !editor?.isActive({ textAlign: "right" }),
+          !editor?.isActive({ textAlign: "right" }) &&
+          !editor?.isActive({ textAlign: "justify" }),
         onClick: () => editor?.chain().focus().setTextAlign("left").run(),
       },
       {
@@ -103,6 +105,12 @@ const Toolbar: FC<Props> = () => {
         icon: AlignRightIcon,
         isActive: editor?.isActive({ textAlign: "right" }),
         onClick: () => editor?.chain().focus().setTextAlign("right").run(),
+      },
+      {
+        label: "Align Justify",
+        icon: AlignJustifyIcon,
+        isActive: editor?.isActive({ textAlign: "justify" }),
+        onClick: () => editor?.chain().focus().setTextAlign("justify").run(),
       },
     ],
     [
