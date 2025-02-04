@@ -153,24 +153,22 @@ const Toolbar: FC<Props> = () => {
   ];
 
   return (
-    <div className="fixed top-0 left-0 w-full z-10 print:hidden p-2">
-      <div className="bg-slate-200/95 px-2.5 py-0.5 rounded-3xl min-h-10 flex items-center gap-x-0.5 overflow-x-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent">
-        {sections.map((section, index) => (
-          <div key={index} className="flex items-center gap-x-0.5">
-            {index > 0 && (
-              <Separator orientation="vertical" className="h-6 bg-slate-300" />
-            )}
-            {section.map((item) => {
-              if (typeof item === "function") {
-                const FnComponent = item;
-                return <FnComponent key={item.name} />;
-              }
+    <div className="bg-slate-200 px-2.5 py-0.5 rounded-3xl min-h-10 flex items-center gap-x-0.5 overflow-x-auto scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent">
+      {sections.map((section, index) => (
+        <div key={index} className="flex items-center gap-x-0.5">
+          {index > 0 && (
+            <Separator orientation="vertical" className="h-6 bg-slate-300" />
+          )}
+          {section.map((item) => {
+            if (typeof item === "function") {
+              const FnComponent = item;
+              return <FnComponent key={item.name} />;
+            }
 
-              return <ToolbarButton key={item.label} {...item} />;
-            })}
-          </div>
-        ))}
-      </div>
+            return <ToolbarButton key={item.label} {...item} />;
+          })}
+        </div>
+      ))}
     </div>
   );
 };
