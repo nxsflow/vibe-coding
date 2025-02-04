@@ -1,7 +1,7 @@
 import { BaseEditor } from "@/components/editors/BaseEditor";
-import Toolbar from "@/components/toolbar/toolbar";
 import { FC } from "react";
 import Navbar from "./(navbar)/navbar";
+import Toolbar from "./(toolbar)/toolbar";
 
 interface Props {
   params?: Promise<{
