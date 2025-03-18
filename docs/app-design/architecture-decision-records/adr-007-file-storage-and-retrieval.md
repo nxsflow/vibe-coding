@@ -25,21 +25,21 @@ Components of the Solution
 
 - **Amazon S3**: Core storage for all file types, ensuring durability and scalability.
 - **Amazon CloudFront**: A CDN that caches files globally at edge locations, reducing latency and boosting performance, especially for images.
--	**Lambda@Edge**: Serverless functions executed at CloudFront edge locations to dynamically resize images based on Next.js request parameters (e.g., width and height).
--	**AWS Amplify**: Manages secure file uploads from the frontend and integrates with S3 and CloudFront.
+- **Lambda@Edge**: Serverless functions executed at CloudFront edge locations to dynamically resize images based on Next.js request parameters (e.g., width and height).
+- **AWS Amplify**: Manages secure file uploads from the frontend and integrates with S3 and CloudFront.
 
 ## Rationale
 
 This solution aligns with the app’s requirements for the following reasons:
 
--	**Scalability**: S3 offers virtually unlimited storage, and CloudFront scales delivery effortlessly to handle increasing demand.
--	**Security**: S3 provides encryption at rest (SSE-S3 or SSE-KMS) and IAM-based access control, while CloudFront ensures encrypted transit via HTTPS and supports signed URLs.
--	**Performance**:
+- **Scalability**: S3 offers virtually unlimited storage, and CloudFront scales delivery effortlessly to handle increasing demand.
+- **Security**: S3 provides encryption at rest (SSE-S3 or SSE-KMS) and IAM-based access control, while CloudFront ensures encrypted transit via HTTPS and supports signed URLs.
+- **Performance**:
    - CloudFront caches files at edge locations, minimizing latency for users worldwide, which is particularly beneficial for image delivery.
    - Lambda@Edge resizes images dynamically at the edge, delivering only the requested size, reducing bandwidth and improving load times for Next.js.
--	**Integration**: The solution leverages AWS services, ensuring compatibility with AWS Amplify and the Next.js frontend.
--	**Optimized Image Delivery**: Lambda@Edge enables real-time image resizing based on query parameters (e.g., ?width=300&height=200), meeting Next.js’s needs for responsive designs without pre-generating multiple image versions.
--	**Cost-Effectiveness**: S3 and CloudFront use pay-per-use pricing, and caching reduces S3 request costs, while Lambda@Edge’s serverless model avoids fixed infrastructure expenses.
+- **Integration**: The solution leverages AWS services, ensuring compatibility with AWS Amplify and the Next.js frontend.
+- **Optimized Image Delivery**: Lambda@Edge enables real-time image resizing based on query parameters (e.g., ?width=300&height=200), meeting Next.js’s needs for responsive designs without pre-generating multiple image versions.
+- **Cost-Effectiveness**: S3 and CloudFront use pay-per-use pricing, and caching reduces S3 request costs, while Lambda@Edge’s serverless model avoids fixed infrastructure expenses.
 
 ## Options Considered
 
