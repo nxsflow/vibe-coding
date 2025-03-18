@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Ensure Robust Testing Coverage
+
+Generate unit tests for components and hooks using Jest and React Testing Library, and end-to-end tests with Cypress. Focus on high test coverage for critical paths, such as note creation, editing, and real-time collaboration, to maintain reliability across the application.

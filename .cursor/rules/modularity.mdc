@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Promote Modularity with Feature-Based Structure
+
+Structure the application modularly to avoid a monolithic architecture. For frontend code, organize files into a feature-based folder structure (e.g., `src/features/<feature-name>/`), where each feature directory contains its related components, hooks, and styles. For backend logic, define AWS Amplify serverless functions in separate directories under `amplify/backend/function/`, each handling a specific task or API endpoint. This ensures independent development and scalability of features like note creation or collaboration.

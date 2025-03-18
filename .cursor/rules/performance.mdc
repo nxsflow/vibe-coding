@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Optimize Performance with Next.js Features
+
+Enhance performance by leveraging Next.js capabilities, such as server-side rendering (SSR) or static site generation (SSG), for fast page loads. Optimize data fetching with GraphQL and minimize bundle sizes by using dynamic imports and the `next/image` component for media.
+
+Consider the decisions from these ADRs: [adr-007-file-storage-and-retrieval.md](mdc:docs/app-design/architecture-decision-records/adr-007-file-storage-and-retrieval.md), [adr-008-frontend-framework.md](mdc:docs/app-design/architecture-decision-records/adr-008-frontend-framework.md).

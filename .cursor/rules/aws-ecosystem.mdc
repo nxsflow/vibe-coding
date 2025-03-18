@@ -1,0 +1,18 @@
+---
+description: When a requests has an effect on the backend consider the backend decisions documented in this rule.
+globs: 
+alwaysApply: false
+---
+# Leverage AWS Ecosystem Integration
+
+Utilize the designated AWS services consistently: manage the backend with AWS Amplify, authenticate users via AWS Cognito, expose the GraphQL API through AWS AppSync, store data in AWS DynamoDB, handle file storage with AWS S3, and enable real-time collaboration using a custom WebSocket server on AWS. Ensure all generated code adheres to these service selections for seamless integration.
+
+Find details in:
+- [adr-002-backend-cloud-services.md](mdc:docs/app-design/architecture-decision-records/adr-002-backend-cloud-services.md) for general explanations on the cloud services to use.
+- [adr-004-real-time-collab.md](mdc:docs/app-design/architecture-decision-records/adr-004-real-time-collab.md) for requests related to real-time collaboration functionality.
+- [adr-005-persisting-document-state.md](mdc:docs/app-design/architecture-decision-records/adr-005-persisting-document-state.md) for requests on how to persist the notes and their history.
+- [adr-009-authentication-authorisation.md](mdc:docs/app-design/architecture-decision-records/adr-009-authentication-authorisation.md) for requests on authentication or authorisation.
+- [adr-010-api-architecture.md](mdc:docs/app-design/architecture-decision-records/adr-010-api-architecture.md) for requests on how to retrieve data via APIs.
+- [adr-013-analytics.md](mdc:docs/app-design/architecture-decision-records/adr-013-analytics.md) for requests on how to track user behavior.
+- [adr-014-observability.md](mdc:docs/app-design/architecture-decision-records/adr-014-observability.md) for requests on logging, metrics, and alarms.
+- [adr-016-cicd.md](mdc:docs/app-design/architecture-decision-records/adr-016-cicd.md) for requests on CI/CD including testing before releasing.

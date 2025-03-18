@@ -1,0 +1,12 @@
+---
+description: When a new functionality has an impact on security. User data needs to be protected. Code needs to be tested for security vulnerabilities.
+globs: 
+alwaysApply: false
+---
+# Secure the Application with AWS Cognito
+
+Secure all user interactions using AWS Cognito for authentication and authorization. Implement session management with token refresh, enforce role-based access controls, and validate all user inputs to protect against vulnerabilities like injection attacks.
+
+AWS Amplify provides AWS Cognito integration. Stick to that as much as possible.
+
+See details heres: [adr-005-persisting-document-state.md](mdc:docs/app-design/architecture-decision-records/adr-005-persisting-document-state.md), [adr-007-file-storage-and-retrieval.md](mdc:docs/app-design/architecture-decision-records/adr-007-file-storage-and-retrieval.md), [adr-009-authentication-authorisation.md](mdc:docs/app-design/architecture-decision-records/adr-009-authentication-authorisation.md), [adr-014-observability.md](mdc:docs/app-design/architecture-decision-records/adr-014-observability.md).

@@ -1,0 +1,10 @@
+---
+description: Whenever the solution would prefer from a state management solution, review this rule and its corresponding ADR.
+globs: 
+alwaysApply: false
+---
+# Manage State with React Context and Hooks
+
+Use React Context and Hooks for state management in the frontend. Keep state local to components where feasible, and employ context providers for shared state (e.g., user settings or note metadata), optimizing for performance by minimizing unnecessary re-renders.
+
+See more details in corresponding ADR: [adr-011-state-management.md](mdc:docs/app-design/architecture-decision-records/adr-011-state-management.md).

@@ -1,0 +1,8 @@
+---
+description: When a requests has dependencies on the note-taking app's local-first approach.
+globs: 
+alwaysApply: false
+---
+# Enable Offline Functionality with IndexedDB
+
+Implement offline capabilities by using IndexedDB for local data storage. Ensure that critical operations, such as creating or editing notes, function offline, with synchronization logic triggered upon reconnection to reconcile changes with the server. Include error handling for sync conflicts.

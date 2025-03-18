@@ -1,0 +1,8 @@
+---
+description: When data needs to be fetched from the note-taking app's backend, consider this rule for efficient operations.
+globs: 
+alwaysApply: false
+---
+# Interact with AppSync via GraphQL Client
+
+Use AWS Amplify’s GraphQL client to communicate with the AWS AppSync API. Write efficient GraphQL queries and mutations to fetch only required data, and leverage subscriptions for real-time updates (e.g., notifications or collaboration events), adhering to the application’s API architecture.

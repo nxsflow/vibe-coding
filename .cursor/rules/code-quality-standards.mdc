@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Maintain Code Quality and Standards
+
+Ensure high code quality by generating clean, readable code that follows best practices for the tech stack. Include inline documentation for complex logic, and enforce consistent formatting and standards using linters (e.g., ESLint) and formatters (e.g., Prettier).

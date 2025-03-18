@@ -1,0 +1,10 @@
+---
+description: When a requests has dependencies to the app's real-rime collaboration features.
+globs: 
+alwaysApply: false
+---
+# Implement Real-Time Collaboration with Yjs and Tiptap
+
+Use Yjs, integrated with Tiptap via the `y-prosemirror` binding, for real-time collaborative editing features. Manage WebSocket connections efficiently through the custom AWS WebSocket server to synchronize document changes across users, ensuring low latency and reliable updates.
+
+More details in this ADR: [adr-004-real-time-collab.md](mdc:docs/app-design/architecture-decision-records/adr-004-real-time-collab.md).
