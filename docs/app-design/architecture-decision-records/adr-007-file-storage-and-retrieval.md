@@ -35,8 +35,8 @@ This solution aligns with the app’s requirements for the following reasons:
 -	**Scalability**: S3 offers virtually unlimited storage, and CloudFront scales delivery effortlessly to handle increasing demand.
 -	**Security**: S3 provides encryption at rest (SSE-S3 or SSE-KMS) and IAM-based access control, while CloudFront ensures encrypted transit via HTTPS and supports signed URLs.
 -	**Performance**:
-  -	CloudFront caches files at edge locations, minimizing latency for users worldwide, which is particularly beneficial for image delivery.
-  -	Lambda@Edge resizes images dynamically at the edge, delivering only the requested size, reducing bandwidth and improving load times for Next.js.
+  - CloudFront caches files at edge locations, minimizing latency for users worldwide, which is particularly beneficial for image delivery.
+  - Lambda@Edge resizes images dynamically at the edge, delivering only the requested size, reducing bandwidth and improving load times for Next.js.
 -	**Integration**: The solution leverages AWS services, ensuring compatibility with AWS Amplify and the Next.js frontend.
 -	**Optimized Image Delivery**: Lambda@Edge enables real-time image resizing based on query parameters (e.g., ?width=300&height=200), meeting Next.js’s needs for responsive designs without pre-generating multiple image versions.
 -	**Cost-Effectiveness**: S3 and CloudFront use pay-per-use pricing, and caching reduces S3 request costs, while Lambda@Edge’s serverless model avoids fixed infrastructure expenses.
@@ -45,18 +45,25 @@ This solution aligns with the app’s requirements for the following reasons:
 
 Several alternatives were evaluated before finalizing this decision:
 
-1.	Amazon S3 with Direct Access
-  -	Pros: Easy to implement.
-  -	Cons: No CDN for performance; no dynamic image resizing.
-2.	Amazon S3 with CloudFront (No Lambda@Edge)
-  -	Pros: Improved delivery speed via CDN.
-  -	Cons: Lacks on-demand image resizing, requiring pre-generated versions.
-3.	Third-Party Services (e.g., Cloudinary)
-  -	Pros: Built-in image optimization and resizing.
-	 -	Cons: External dependency, higher costs, and misalignment with AWS ecosystem.
-4. Custom Resizing Server
-	 -	Pros: Full control over resizing logic.
-	 -	Cons: Increased complexity and maintenance overhead.
+### 1. Amazon S3 with Direct Access
+
+- Pros: Easy to implement.
+- Cons: No CDN for performance; no dynamic image resizing.
+
+### 2. Amazon S3 with CloudFront (No Lambda@Edge)
+
+- Pros: Improved delivery speed via CDN.
+- Cons: Lacks on-demand image resizing, requiring pre-generated versions.
+
+### 3. Third-Party Services (e.g., Cloudinary)
+
+- Pros: Built-in image optimization and resizing.
+- Cons: External dependency, higher costs, and misalignment with AWS ecosystem.
+
+### 4. Custom Resizing Server
+
+- Pros: Full control over resizing logic.
+- Cons: Increased complexity and maintenance overhead.
 
 The chosen solution—S3, CloudFront, and Lambda@Edge—offers superior performance, scalability, and integration, addressing your emphasis on CloudFront for image performance and Lambda for dynamic resizing.
 
