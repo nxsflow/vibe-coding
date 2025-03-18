@@ -12,26 +12,36 @@ This document summarizes the key architectural decisions for our note-taking app
 
 ## Backend
 
-| Component             | Technology  | ADR Reference |
-| --------------------- | ----------- | ------------- |
-| **Cloud Provider**    | AWS         | ADR-002       |
-| **Backend Framework** | AWS Amplify | ADR-002       |
-| **Authentication**    | AWS Cognito | ADR-009       |
+| Component             | Technology            | ADR Reference |
+| --------------------- | --------------------- | ------------- |
+| **Cloud Provider**    | AWS                   | ADR-002       |
+| **Backend Framework** | AWS Amplify           | ADR-002       |
+| **Authentication**    | AWS Cognito           | ADR-009       |
+| **API Architecture**  | GraphQL (AWS AppSync) | ADR-010       |
 
 ## Data Management
 
-| Component                   | Technology                                | ADR Reference    |
-| --------------------------- | ----------------------------------------- | ---------------- |
-| **Database**                | AWS DynamoDB (via Amplify)                | ADR-002          |
-| **File Storage**            | AWS S3                                    | ADR-007          |
-| **Real-time Collaboration** | Yjs with custom AWS WebSocket server      | ADR-004          |
-| **Offline Support**         | IndexedDB with synchronization mechanisms | ADR-003, ADR-006 |
+| Component                   | Technology                                          | ADR Reference    |
+| --------------------------- | --------------------------------------------------- | ---------------- |
+| **Database**                | AWS DynamoDB (via Amplify)                          | ADR-002          |
+| **File Storage**            | AWS S3                                              | ADR-007          |
+| **Real-time Collaboration** | Yjs with custom AWS WebSocket server                | ADR-004          |
+| **Document Persistence**    | Debounced writing strategy (5s inactivity, 30s max) | ADR-005          |
+| **Offline Support**         | IndexedDB with synchronization mechanisms           | ADR-003, ADR-006 |
 
 ## Key Architectural Patterns
 
 ### Real-time Collaboration
 
 The application implements collaborative editing using Yjs, a CRDT-based library that integrates with the Tiptap editor through the `y-prosemirror` binding. A custom WebSocket server hosted on AWS handles the synchronization of changes between users in real-time.
+
+### Document State Persistence
+
+A debounced writing strategy persists document state to the database after 5 seconds of inactivity, with a maximum wait time of 30 seconds during continuous editing. Both the full Y.Doc state and incremental updates are stored to ensure data integrity and support features like version history.
+
+### API Architecture
+
+GraphQL (via AWS AppSync) serves as the primary API architecture, enabling efficient data fetching with precise queries and providing real-time capabilities through GraphQL subscriptions. This complements the Yjs WebSocket solution for in-document collaboration while handling broader app data and notifications.
 
 ### Authentication & Authorization
 
@@ -47,12 +57,13 @@ React Context with Hooks manages the application's state, providing a simple yet
 
 ## Development & Operations
 
-| Component         | Technology                           | ADR Reference |
-| ----------------- | ------------------------------------ | ------------- |
-| **Testing**       | Jest, React Testing Library, Cypress | ADR-012       |
-| **CI/CD**         | GitHub Actions                       | ADR-016       |
-| **Observability** | AWS CloudWatch, Sentry               | ADR-014       |
-| **Analytics**     | Amplitude                            | ADR-013       |
+| Component              | Technology                           | ADR Reference |
+| ---------------------- | ------------------------------------ | ------------- |
+| **Testing**            | Jest, React Testing Library, Cypress | ADR-012       |
+| **CI/CD**              | AWS Amplify                          | ADR-016       |
+| **Observability**      | AWS CloudWatch, AWS X-Ray            | ADR-014       |
+| **Analytics**          | AWS Pinpoint                         | ADR-013       |
+| **Release Management** | Semantic Versioning, GitHub Releases | ADR-015       |
 
 ## Technology Selection Principles
 
