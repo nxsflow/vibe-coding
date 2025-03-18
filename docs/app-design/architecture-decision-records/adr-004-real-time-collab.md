@@ -1,3 +1,11 @@
+---
+status: "accepted"
+date: 2025-03-18
+decision-makers: Carsten Koch
+consulted: Grok 3
+informed: -
+---
+
 # ADR 004: Choose Real-time Collaboration Solution for Note-Taking App
 
 ## Status
@@ -23,6 +31,7 @@ We will implement **Yjs with a custom WebSocket server hosted on AWS** as the re
 ## Consequences
 
 ### Positive
+
 - **Robust Collaboration**: Yjs uses CRDTs to manage concurrent edits and resolve conflicts automatically, providing a reliable foundation for real-time collaboration.
 - **Tiptap Compatibility**: The `y-prosemirror` binding ensures seamless integration with Tiptap, simplifying development.
 - **Data Privacy**: Hosting the WebSocket server on AWS keeps all data within our infrastructure, aligning with privacy requirements.
@@ -31,6 +40,7 @@ We will implement **Yjs with a custom WebSocket server hosted on AWS** as the re
 - **Efficient Database Usage**: By managing real-time updates separately from database writes, this approach reduces the frequency of database operations, potentially lowering costs and improving performance.
 
 ### Negative
+
 - **Setup Complexity**: Building and deploying a custom WebSocket server requires additional development effort compared to fully managed solutions.
 - **Operational Overhead**: We must monitor and maintain the WebSocket server, including scaling and fault tolerance.
 - **Integration Work**: While Yjs fits well with Tiptap, connecting it to the broader AWS Amplify backend requires extra effort.
@@ -39,25 +49,28 @@ We will implement **Yjs with a custom WebSocket server hosted on AWS** as the re
 
 Several solutions were evaluated based on the app’s requirements:
 
-1. **Yjs with AWS WebSocket Server**  
-   - *Description*: An open-source CRDT library paired with a custom WebSocket server hosted on AWS (e.g., via Elastic Beanstalk, ECS, or API Gateway WebSockets).  
-   - *Pros*: Designed for collaborative editing; integrates with Tiptap; keeps data in AWS; supports offline editing; efficient database usage.  
-   - *Cons*: Requires custom server setup and maintenance.
+1. **Yjs with AWS WebSocket Server**
 
-2. **AWS AppSync with GraphQL Subscriptions**  
-   - *Description*: A managed GraphQL service providing real-time updates through subscriptions, integrated with AWS Amplify.  
-   - *Pros*: Seamless AWS Amplify integration; managed service reduces infrastructure burden.  
-   - *Cons*: Lacks native support for fine-grained text collaboration; requires custom conflict resolution logic; frequent database writes can increase costs.
+   - _Description_: An open-source CRDT library paired with a custom WebSocket server hosted on AWS (e.g., via Elastic Beanstalk, ECS, or API Gateway WebSockets).
+   - _Pros_: Designed for collaborative editing; integrates with Tiptap; keeps data in AWS; supports offline editing; efficient database usage.
+   - _Cons_: Requires custom server setup and maintenance.
 
-3. **Liveblocks**  
-   - *Description*: A third-party managed service offering real-time collaboration features with Tiptap support.  
-   - *Pros*: Easy to implement; handles synchronization and conflicts out of the box.  
-   - *Cons*: Operates outside AWS, conflicting with data privacy goals.
+2. **AWS AppSync with GraphQL Subscriptions**
 
-4. **Custom Solution with AWS API Gateway WebSockets**  
-   - *Description*: A bespoke synchronization protocol using AWS API Gateway’s WebSocket capabilities.  
-   - *Pros*: Full control over implementation; stays within AWS.  
-   - *Cons*: High development effort; redundant given existing solutions like Yjs.
+   - _Description_: A managed GraphQL service providing real-time updates through subscriptions, integrated with AWS Amplify.
+   - _Pros_: Seamless AWS Amplify integration; managed service reduces infrastructure burden.
+   - _Cons_: Lacks native support for fine-grained text collaboration; requires custom conflict resolution logic; frequent database writes can increase costs.
+
+3. **Liveblocks**
+
+   - _Description_: A third-party managed service offering real-time collaboration features with Tiptap support.
+   - _Pros_: Easy to implement; handles synchronization and conflicts out of the box.
+   - _Cons_: Operates outside AWS, conflicting with data privacy goals.
+
+4. **Custom Solution with AWS API Gateway WebSockets**
+   - _Description_: A bespoke synchronization protocol using AWS API Gateway’s WebSocket capabilities.
+   - _Pros_: Full control over implementation; stays within AWS.
+   - _Cons_: High development effort; redundant given existing solutions like Yjs.
 
 ## Rationale
 

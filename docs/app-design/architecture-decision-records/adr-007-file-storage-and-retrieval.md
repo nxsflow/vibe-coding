@@ -1,3 +1,11 @@
+---
+status: "accepted"
+date: 2025-03-18
+decision-makers: Carsten Koch
+consulted: Grok 3
+informed: -
+---
+
 # ADR 007: Decide on File Storage Solution for Note-Taking App
 
 ## Status
@@ -35,8 +43,8 @@ This solution aligns with the app’s requirements for the following reasons:
 - **Scalability**: S3 offers virtually unlimited storage, and CloudFront scales delivery effortlessly to handle increasing demand.
 - **Security**: S3 provides encryption at rest (SSE-S3 or SSE-KMS) and IAM-based access control, while CloudFront ensures encrypted transit via HTTPS and supports signed URLs.
 - **Performance**:
-   - CloudFront caches files at edge locations, minimizing latency for users worldwide, which is particularly beneficial for image delivery.
-   - Lambda@Edge resizes images dynamically at the edge, delivering only the requested size, reducing bandwidth and improving load times for Next.js.
+  - CloudFront caches files at edge locations, minimizing latency for users worldwide, which is particularly beneficial for image delivery.
+  - Lambda@Edge resizes images dynamically at the edge, delivering only the requested size, reducing bandwidth and improving load times for Next.js.
 - **Integration**: The solution leverages AWS services, ensuring compatibility with AWS Amplify and the Next.js frontend.
 - **Optimized Image Delivery**: Lambda@Edge enables real-time image resizing based on query parameters (e.g., ?width=300&height=200), meeting Next.js’s needs for responsive designs without pre-generating multiple image versions.
 - **Cost-Effectiveness**: S3 and CloudFront use pay-per-use pricing, and caching reduces S3 request costs, while Lambda@Edge’s serverless model avoids fixed infrastructure expenses.
@@ -70,25 +78,25 @@ The chosen solution—S3, CloudFront, and Lambda@Edge—offers superior performa
 ## Implementation Details
 
 - **File Storage**:
-   - Files are uploaded to an S3 bucket via AWS Amplify’s storage module.
-   - Files are organized by user ID or note ID for logical structuring (e.g., users/{userId}/notes/{noteId}/{fileName}).
+  - Files are uploaded to an S3 bucket via AWS Amplify’s storage module.
+  - Files are organized by user ID or note ID for logical structuring (e.g., users/{userId}/notes/{noteId}/{fileName}).
 - **Linking Files to Notes**:
-   - File metadata (e.g., S3 key, file type, size) is stored in DynamoDB alongside note or block data.
-   - CloudFront URLs (optionally signed) provide secure, cached access to files.
+  - File metadata (e.g., S3 key, file type, size) is stored in DynamoDB alongside note or block data.
+  - CloudFront URLs (optionally signed) provide secure, cached access to files.
 - **Optimized Image Delivery**:
-   - Next.js requests images with query parameters (e.g., https://cdn.example.com/image.jpg?width=300&height=200).
-   - Lambda@Edge intercepts these requests at CloudFront edge locations, resizes the original S3-hosted image, and caches the result for future requests.
-   - This eliminates the need to store multiple image sizes, optimizing storage while ensuring fast delivery.
+  - Next.js requests images with query parameters (e.g., https://cdn.example.com/image.jpg?width=300&height=200).
+  - Lambda@Edge intercepts these requests at CloudFront edge locations, resizes the original S3-hosted image, and caches the result for future requests.
+  - This eliminates the need to store multiple image sizes, optimizing storage while ensuring fast delivery.
 - **Security**:
-   - S3 bucket access is restricted using IAM roles and bucket policies.
-   - CloudFront enforces HTTPS and supports signed URLs or cookies for private content.
-   - Encryption is applied at rest (S3) and in transit (CloudFront).
+  - S3 bucket access is restricted using IAM roles and bucket policies.
+  - CloudFront enforces HTTPS and supports signed URLs or cookies for private content.
+  - Encryption is applied at rest (S3) and in transit (CloudFront).
 - **Performance**:
-   - CloudFront caches files globally, reducing S3 load and speeding up access.
-   - Lambda@Edge processes image resizing at the edge, minimizing latency.
+  - CloudFront caches files globally, reducing S3 load and speeding up access.
+  - Lambda@Edge processes image resizing at the edge, minimizing latency.
 - **Cost Management**:
-   - S3 lifecycle policies move older files to lower-cost tiers (e.g., S3 Glacier).
-   - CloudFront caching reduces S3 request costs, and Lambda@Edge scales with usage.
+  - S3 lifecycle policies move older files to lower-cost tiers (e.g., S3 Glacier).
+  - CloudFront caching reduces S3 request costs, and Lambda@Edge scales with usage.
 
 ## Consequences
 

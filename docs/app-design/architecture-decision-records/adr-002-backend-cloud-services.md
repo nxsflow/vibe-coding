@@ -1,3 +1,11 @@
+---
+status: "accepted"
+date: 2025-03-18
+decision-makers: Carsten Koch
+consulted: Grok 3
+informed: -
+---
+
 # ADR 002: Choose Backend Environment for Note-Taking App
 
 ## Status
@@ -24,12 +32,14 @@ We will use **AWS Amplify** as the backend environment for the note-taking app.
 ## Consequences
 
 ### Positive
+
 - **Streamlined Integration**: Amplify simplifies connecting the frontend and backend, reducing development overhead.
 - **Feature Support**: Provides built-in solutions for authentication, authorization, storage, GraphQL APIs, and WebSocket-based real-time features.
 - **Development Efficiency**: Offers tools like CLI and SDKs to accelerate setup, testing, and deployment.
 - **Scalability**: Leverages AWS’s robust infrastructure to scale seamlessly with user growth.
 
 ### Negative
+
 - **Abstraction Overhead**: Amplify’s layer of abstraction may limit customization for complex backend needs.
 - **Learning Curve**: Requires familiarity with Amplify’s workflows and tools.
 - **AWS Dependency**: Ties the app to AWS, potentially complicating future migrations.
@@ -39,19 +49,21 @@ We will use **AWS Amplify** as the backend environment for the note-taking app.
 The following backend environments were evaluated based on the app’s requirements:
 
 1. **AWS Amplify**
-   - *Description*: A platform that integrates frontend and backend development with AWS services.
-   - *Pros*: Simplifies implementation of authentication, storage, APIs, and real-time features; accelerates development.
-   - *Cons*: Adds an abstraction layer; increases reliance on AWS.
+
+   - _Description_: A platform that integrates frontend and backend development with AWS services.
+   - _Pros_: Simplifies implementation of authentication, storage, APIs, and real-time features; accelerates development.
+   - _Cons_: Adds an abstraction layer; increases reliance on AWS.
 
 2. **Custom Cloud Solutions (AWS)**
-   - *Description*: Directly utilize AWS’s suite of services tailored to specific needs.
-   - *Pros*: Offers flexibility and full control over components; leverages AWS’s broad capabilities.
-   - *Cons*: Requires more effort to configure and integrate services.
+
+   - _Description_: Directly utilize AWS’s suite of services tailored to specific needs.
+   - _Pros_: Offers flexibility and full control over components; leverages AWS’s broad capabilities.
+   - _Cons_: Requires more effort to configure and integrate services.
 
 3. **Google Firebase**
-   - *Description*: A backend-as-a-service platform with real-time and storage features.
-   - *Pros*: Quick setup with strong real-time support.
-   - *Cons*: Operates outside AWS, limiting data control alignment.
+   - _Description_: A backend-as-a-service platform with real-time and storage features.
+   - _Pros_: Quick setup with strong real-time support.
+   - _Cons_: Operates outside AWS, limiting data control alignment.
 
 ## Rationale
 

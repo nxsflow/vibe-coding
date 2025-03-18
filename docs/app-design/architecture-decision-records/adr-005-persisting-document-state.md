@@ -1,3 +1,11 @@
+---
+status: "accepted"
+date: 2025-03-18
+decision-makers: Carsten Koch
+consulted: Grok 3
+informed: -
+---
+
 # ADR 005: Storage Strategy for Y.Docs and Updates in Note-Taking App
 
 ## Status
@@ -30,12 +38,14 @@ This strategy ensures that changes are saved frequently enough to limit data los
 ## Consequences
 
 ### Positive
+
 - **Efficient Resource Use**: Debouncing consolidates writes, reducing database operations and associated costs compared to saving every update instantly.
 - **Reliable Persistence**: The 30-second maximum wait ensures regular saves during continuous editing, minimizing data loss risks.
 - **Full History Support**: Storing both the Y.Doc state and all updates enables features like version history, undo/redo, and auditing.
 - **Smooth User Experience**: The 5-second debounce interval saves changes quickly after a pause, preserving work without noticeable delays.
 
 ### Negative
+
 - **Implementation Complexity**: Coordinating debounced saves with both state and updates requires careful logic between the app and database.
 - **Small Data Loss Risk**: Up to 30 seconds of changes could be lost in a sudden disconnection, though this is mitigated by storing updates with each save.
 - **Increased Storage Needs**: Retaining both the full state and incremental updates consumes more storage, a necessary trade-off for history preservation.
@@ -44,25 +54,28 @@ This strategy ensures that changes are saved frequently enough to limit data los
 
 We evaluated several approaches to meet the app’s needs:
 
-1. **Immediate Update Saves**  
-   - *Description*: Save each Yjs update to the database as it occurs.  
-   - *Pros*: Near-zero data loss; straightforward to implement.  
-   - *Cons*: Excessive write frequency increases costs and may slow performance.
+1. **Immediate Update Saves**
 
-2. **Fixed-Interval State Saves**  
-   - *Description*: Save the full Y.Doc state every 10 seconds, ignoring updates.  
-   - *Pros*: Predictable writes; simple to manage.  
-   - *Cons*: No update history; higher data loss risk between saves.
+   - _Description_: Save each Yjs update to the database as it occurs.
+   - _Pros_: Near-zero data loss; straightforward to implement.
+   - _Cons_: Excessive write frequency increases costs and may slow performance.
 
-3. **Debounced Writing with Maximum Wait**  
-   - *Description*: Save state and updates after inactivity, with a cap for continuous edits.  
-   - *Pros*: Balances efficiency and reliability; retains full history.  
-   - *Cons*: More complex; requires interval tuning.
+2. **Fixed-Interval State Saves**
 
-4. **Event-Triggered Saves**  
-   - *Description*: Save on specific user actions (e.g., pausing, closing the app).  
-   - *Pros*: Aligns with user behavior; reduces unnecessary writes.  
-   - *Cons*: Misses saves during unexpected disconnections.
+   - _Description_: Save the full Y.Doc state every 10 seconds, ignoring updates.
+   - _Pros_: Predictable writes; simple to manage.
+   - _Cons_: No update history; higher data loss risk between saves.
+
+3. **Debounced Writing with Maximum Wait**
+
+   - _Description_: Save state and updates after inactivity, with a cap for continuous edits.
+   - _Pros_: Balances efficiency and reliability; retains full history.
+   - _Cons_: More complex; requires interval tuning.
+
+4. **Event-Triggered Saves**
+   - _Description_: Save on specific user actions (e.g., pausing, closing the app).
+   - _Pros_: Aligns with user behavior; reduces unnecessary writes.
+   - _Cons_: Misses saves during unexpected disconnections.
 
 ## Rationale
 

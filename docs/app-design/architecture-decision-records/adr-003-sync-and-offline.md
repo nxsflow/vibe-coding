@@ -1,3 +1,11 @@
+---
+status: "accepted"
+date: 2025-03-18
+decision-makers: Carsten Koch
+consulted: Grok 3
+informed: -
+---
+
 # ADR 003: Choose Synchronization Engine for Note-Taking App Supporting Offline Usage
 
 ## Status
@@ -22,6 +30,7 @@ We will implement **Yjs** with a custom WebSocket server hosted on AWS as the sy
 ## Consequences
 
 ### Positive
+
 - **Full Data Control**: Hosting the synchronization server on AWS keeps all user data within our infrastructure, ensuring compliance with privacy standards.
 - **Real-Time Collaboration**: Yjs supports live editing with features like shared cursors and user presence, meeting collaboration needs.
 - **Offline Support**: Yjs enables offline editing and automatically syncs changes upon reconnection.
@@ -29,6 +38,7 @@ We will implement **Yjs** with a custom WebSocket server hosted on AWS as the sy
 - **Tiptap Compatibility**: The `y-prosemirror` binding ensures seamless integration with Tiptap.
 
 ### Negative
+
 - **Development Overhead**: Building and maintaining a custom WebSocket server increases complexity compared to managed solutions.
 - **Scalability Responsibility**: We must manage scaling the WebSocket server as the user base grows, requiring additional infrastructure effort.
 - **Feature Gaps**: Unlike some third-party services, Yjs does not include built-in features like comments, which may need custom implementation.
@@ -38,39 +48,42 @@ We will implement **Yjs** with a custom WebSocket server hosted on AWS as the sy
 We evaluated several synchronization engines based on the app’s needs and the requirement to stay within AWS:
 
 1. **Yjs with AWS WebSocket Server**
-   - *Description*: An open-source CRDT library with a ProseMirror binding (`y-prosemirror`), paired with a custom WebSocket server on AWS (e.g., using EC2 or ECS).
-   - *Pros*:
+
+   - _Description_: An open-source CRDT library with a ProseMirror binding (`y-prosemirror`), paired with a custom WebSocket server on AWS (e.g., using EC2 or ECS).
+   - _Pros_:
      - Keeps all data within AWS, ensuring privacy and control.
      - Supports real-time collaboration, offline editing, and automatic conflict resolution.
      - No dependency on external services.
-   - *Cons*:
+   - _Cons_:
      - Requires setup and maintenance of a WebSocket server.
      - Adds initial development complexity.
 
 2. **ProseMirror’s `collab` Module with AWS**
-   - *Description*: ProseMirror’s built-in collaboration module, extended with AWS services like DynamoDB for state management.
-   - *Pros*:
+
+   - _Description_: ProseMirror’s built-in collaboration module, extended with AWS services like DynamoDB for state management.
+   - _Pros_:
      - Native to ProseMirror, simplifying basic collaboration integration.
      - Fully controllable within AWS.
-   - *Cons*:
+   - _Cons_:
      - Lacks built-in offline support and requires custom conflict resolution logic.
      - Less robust for complex offline use cases.
 
 3. **AWS AppSync with GraphQL Subscriptions**
-   - *Description*: A managed GraphQL service with real-time updates via subscriptions, hosted on AWS.
-   - *Pros*:
+
+   - _Description_: A managed GraphQL service with real-time updates via subscriptions, hosted on AWS.
+   - _Pros_:
      - Fully within AWS, ensuring data control.
      - Supports real-time updates natively.
-   - *Cons*:
+   - _Cons_:
      - Not optimized for frequent, granular text edits typical in collaborative apps.
      - Requires significant custom logic for offline support and conflict resolution.
 
 4. **Replicache with AWS**
-   - *Description*: An offline-first synchronization engine, paired with an AWS backend (e.g., Lambda functions).
-   - *Pros*:
+   - _Description_: An offline-first synchronization engine, paired with an AWS backend (e.g., Lambda functions).
+   - _Pros_:
      - Strong offline support with straightforward syncing.
      - Runs within AWS for data control.
-   - *Cons*:
+   - _Cons_:
      - Limited native support for real-time collaboration features like live cursors.
      - Requires custom backend development.
 

@@ -1,3 +1,11 @@
+---
+status: "accepted"
+date: 2025-03-18
+decision-makers: Carsten Koch
+consulted: Grok 3
+informed: -
+---
+
 # ADR 001: Choose Editor Framework for Note-Taking App
 
 ## Status
@@ -23,12 +31,14 @@ We will use **Tiptap** as the editor framework for the note-taking app.
 ## Consequences
 
 ### Positive
+
 - **Faster Development**: Tiptap’s simpler API and pre-built components (e.g., for markdown and media embeds) enable quick implementation of core features.
 - **Sufficient Extensibility**: Built on ProseMirror, Tiptap provides access to advanced customization for features like tags and LLM integration.
 - **Offline Support**: As a client-side library, Tiptap works naturally in offline scenarios, aligning with a local-first design.
 - **Good Support**: Tiptap offers solid documentation and a growing community, providing resources and examples for common use cases.
 
 ### Negative
+
 - **Limited Flexibility**: Tiptap is slightly less flexible than raw ProseMirror for highly custom or niche requirements.
 - **Smaller Community**: Compared to more established frameworks like ProseMirror or Slate, Tiptap has a smaller user base, which could limit available third-party resources.
 
@@ -37,38 +47,41 @@ We will use **Tiptap** as the editor framework for the note-taking app.
 Below are the editor frameworks evaluated, along with their strengths and weaknesses:
 
 1. **ProseMirror**
-   - *Description*: A powerful toolkit for building rich text editors, used by apps like Notion.
-   - *Pros*:
+
+   - _Description_: A powerful toolkit for building rich text editors, used by apps like Notion.
+   - _Pros_:
      - Highly extensible, ideal for complex features like custom nodes or real-time collaboration.
      - Strong community and proven in production.
-   - *Cons*:
+   - _Cons_:
      - Steep learning curve and more complex initial setup.
      - Requires additional effort for basic features.
 
 2. **Tiptap**
-   - *Description*: A user-friendly wrapper around ProseMirror with a simpler API.
-   - *Pros*:
+
+   - _Description_: A user-friendly wrapper around ProseMirror with a simpler API.
+   - _Pros_:
      - Easier to use than ProseMirror while retaining its extensibility.
      - Pre-built components accelerate development.
-   - *Cons*:
+   - _Cons_:
      - Less flexible than raw ProseMirror for very advanced customizations.
      - Smaller community than ProseMirror or Slate.
 
 3. **Slate**
-   - *Description*: A flexible rich text editor framework with a focus on customizability.
-   - *Pros*:
+
+   - _Description_: A flexible rich text editor framework with a focus on customizability.
+   - _Pros_:
      - Highly customizable with good documentation.
      - Active community support.
-   - *Cons*:
+   - _Cons_:
      - More opinionated structure may constrain some use cases.
      - Offline support requires additional configuration.
 
 4. **Quill**
-   - *Description*: A lightweight editor focused on simplicity and ease of use.
-   - *Pros*:
+   - _Description_: A lightweight editor focused on simplicity and ease of use.
+   - _Pros_:
      - Quick to set up and lightweight for basic needs.
      - Good performance for simple documents.
-   - *Cons*:
+   - _Cons_:
      - Limited extensibility makes it challenging to implement custom features like tags or LLM integration.
      - Not suited for complex document structures.
 

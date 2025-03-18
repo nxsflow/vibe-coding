@@ -1,3 +1,11 @@
+---
+status: "accepted"
+date: 2025-03-18
+decision-makers: Carsten Koch
+consulted: Grok 3
+informed: -
+---
+
 # ADR 006: Offline Support Mechanism for Note-Taking App
 
 ## Status
@@ -20,13 +28,16 @@ The solution must balance usability, security, and data consistency, ensuring a 
 We will implement an offline support mechanism using **IndexedDB for local storage** and a **refresh token strategy for authorization**. The key components of this decision are:
 
 - **Local Storage with IndexedDB**:
+
   - Notes, including their Y.Doc states (leveraging Yjs from previous ADRs), will be cached locally in IndexedDB when the user is online.
   - Offline updates will be stored as Yjs snippets in a queue, ready for syncing when connectivity is restored.
 
 - **Offline Access Without Token Validation**:
+
   - Users can read and edit locally stored notes without requiring a valid JWT token, ensuring functionality during extended offline periods.
 
 - **Token Refresh on Reconnection**:
+
   - Upon reconnection, the app will attempt to refresh the expired JWT token using a securely stored refresh token.
   - If the refresh token has also expired (e.g., after a month), the user will need to log in again to regain server access. However, local access remains unaffected during the offline period.
 
@@ -39,12 +50,14 @@ This approach ensures that users can work offline for up to a month, with local 
 ## Consequences
 
 ### Positive
+
 - **Seamless Offline Experience**: Users can read and update notes locally for extended periods, even if JWT tokens expire.
 - **Security Enforcement**: Revoked access is respected by deleting local copies of unauthorized documents upon reconnection.
 - **Data Consistency**: Yjs’s conflict-free replicated data type (CRDT) capabilities ensure that offline edits merge correctly with server changes when synced (unless access is revoked).
 - **Transparent Token Management**: The refresh token mechanism handles expired JWTs without disrupting offline functionality.
 
 ### Negative
+
 - **Potential Data Loss**: If access to a document is revoked, offline changes to that document are discarded upon reconnection, which may surprise users if not clearly communicated.
 - **Increased Complexity**: Syncing logic must handle access checks and document deletion, adding implementation overhead.
 - **Re-Authentication Risk**: If both the JWT and refresh token expire (e.g., after a month), users must log in again, which could interrupt their workflow if they remain offline longer than the refresh token’s lifespan.
@@ -54,19 +67,21 @@ This approach ensures that users can work offline for up to a month, with local 
 Several alternatives were evaluated before settling on the chosen approach:
 
 1. **IndexedDB with Token Validation**
-   - *Description*: Require a valid JWT token for all operations, even offline.
-   - *Pros*: Simplifies access control logic.
-   - *Cons*: Fails for long offline periods due to token expiration; rejected as impractical.
+
+   - _Description_: Require a valid JWT token for all operations, even offline.
+   - _Pros_: Simplifies access control logic.
+   - _Cons_: Fails for long offline periods due to token expiration; rejected as impractical.
 
 2. **Local Storage Without Access Sync**
-   - *Description*: Store notes locally and sync changes without checking access rights.
-   - *Pros*: Simple to implement.
-   - *Cons*: Security risk, as revoked documents could persist locally; rejected for failing to meet access control requirements.
+
+   - _Description_: Store notes locally and sync changes without checking access rights.
+   - _Pros_: Simple to implement.
+   - _Cons_: Security risk, as revoked documents could persist locally; rejected for failing to meet access control requirements.
 
 3. **IndexedDB with Refresh Tokens (Chosen Option)**
-   - *Description*: Use IndexedDB for storage and refresh tokens to manage expired JWTs, with access rights synced on reconnection.
-   - *Pros*: Balances offline access, security, and data consistency.
-   - *Cons*: Requires careful management of tokens and sync logic; accepted as the best trade-off.
+   - _Description_: Use IndexedDB for storage and refresh tokens to manage expired JWTs, with access rights synced on reconnection.
+   - _Pros_: Balances offline access, security, and data consistency.
+   - _Cons_: Requires careful management of tokens and sync logic; accepted as the best trade-off.
 
 ## Rationale
 
