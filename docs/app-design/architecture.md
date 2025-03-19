@@ -108,6 +108,8 @@ The application uses AWS Amplify Gen 2 for backend infrastructure, which provide
     - `resource.ts`: Defines the Cognito user pool settings for authentication
   - `data/`: Contains data model and API configuration
     - `resource.ts`: Defines the GraphQL schema and authorization rules
+  - `storage/`: Contains file storage configuration
+    - `resource.ts`: Defines the S3 bucket settings for file storage
   - `package.json`: Dependencies specific to the Amplify backend
 
 ### Backend Resources
@@ -120,6 +122,11 @@ The application uses AWS Amplify Gen 2 for backend infrastructure, which provide
     - Foundation for secure user authentication workflows
 - **Data API**: GraphQL API implemented with AWS AppSync, using the schema defined in `data/resource.ts`
 - **Database**: DynamoDB tables created based on the data models defined in the GraphQL schema
+- **Storage**: S3 bucket for file storage, configured in `storage/resource.ts`:
+  - Named 'NoteAppStorage' for easy identification
+  - Secure access permissions for authenticated users only
+  - Support for reading, writing, and deleting files
+  - Designed for storing note attachments like PDFs, images, and other resources
 
 The Amplify backend uses Infrastructure as Code principles, allowing for version control, reproducibility, and easier collaboration on backend changes.
 
@@ -186,3 +193,50 @@ These junction tables include a blockId field to identify exactly which block wi
 - **Automatic Fields**: AWS Amplify automatically handles id, createdAt, and updatedAt fields, simplifying schema definition and ensuring consistent timestamps.
 
 This domain-driven architecture enables semantic organization of notes and their relationships to real-world entities, while the block-level reference system allows for fine-grained annotation and intelligent retrieval of content.
+
+## Storage Architecture
+
+The application implements a secure file storage system using AWS S3 for storing and retrieving file attachments related to notes. This component is crucial for functionality like document references, image embedding, and resource linking.
+
+### Key Storage Components
+
+- **S3 Bucket**: A dedicated Amazon S3 bucket named 'NoteAppStorage' serves as the central repository for all file attachments.
+
+- **Path-based Organization**:
+
+  - `/notes/{entity_id}/*`: Stores files directly associated with notes
+  - `/resources/{entity_id}/*`: Stores general purpose resources uploaded by users
+  - `/shared/{entity_id}/*`: Stores resources that users choose to share with others
+
+- **Owner-based Access Controls**:
+  - Each user can only access files within their own {entity_id} path
+  - The {entity_id} token is automatically substituted with the user's unique identifier
+  - Fine-grained permissions:
+    - Owners have full read/write/delete access to their own files
+    - For shared resources, other authenticated users have read-only access
+    - No access is granted to resources owned by other users
+
+### Storage Implementation Details
+
+- **Storage Resource Configuration**: Defined in `amplify/storage/resource.ts` using Amplify's TypeScript-first approach with entity-based permissions.
+
+- **Resource Management**:
+
+  - Files are referenced by S3 keys stored in the GraphQL database
+  - Keys follow the pattern `<purpose>/{entity_id}/<filename>` for ownership enforcement
+  - The Resource model links file references to specific note blocks
+
+- **Integration with Note Editor**: The editor will interact with the storage system to enable:
+
+  - File uploads directly from the editor interface with proper path prefixing
+  - Image previews within notes
+  - Document attachments with file type detection
+  - Auto-generated summaries for attached documents (using LLM processing)
+
+- **Security Considerations**:
+  - Strict owner-based access patterns ensure data isolation between users
+  - Path-based security prevents unauthorized access to other users' files
+  - Selective sharing capabilities for collaboration while maintaining security
+  - Content type validation to prevent security issues
+
+This owner-based storage architecture provides a robust foundation for the file attachment features while maintaining strong security through data isolation and selective sharing.

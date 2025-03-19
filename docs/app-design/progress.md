@@ -166,3 +166,45 @@
 - AWS Amplify automatically handles the id, createdAt, and updatedAt fields
 - All models use owner-based authorization for data security
 - Collaboration capabilities have been deferred to a later implementation phase
+
+### Step 6: Set Up File Storage with AWS S3 (Completed)
+
+**Date:** 2025-03-19
+
+**Actions Taken:**
+
+- Created the storage resource directory `amplify/storage/`
+- Implemented the storage configuration in `amplify/storage/resource.ts`:
+  - Configured S3 storage for the application with a bucket named 'NoteAppStorage'
+  - Set up owner-based access patterns using the {entity_id} token for enhanced security:
+    - Created separate paths for different storage purposes:
+      - `notes/{entity_id}/*` for note-related files
+      - `resources/{entity_id}/*` for general user resources
+      - `shared/{entity_id}/*` for selectively shared resources
+    - Applied granular access controls:
+      - Owners have full read/write/delete permissions on their own files
+      - For shared resources, authenticated users have read-only access to owner-shared content
+- Updated the main backend definition in `amplify/backend.ts` to include the storage resource
+- Verified the AWS Amplify storage package is installed and available
+
+**Test Results:**
+
+- Validated the storage configuration compiles without linting errors
+- Configuration is ready for sandbox deployment when AWS credentials are available
+- In a production environment, this would create an S3 bucket with the specified access controls
+
+**Next Step:**
+
+- Proceed to Step 7: Integrate Amplify Auth in the Frontend
+
+**Notes for Developers:**
+
+- The storage configuration uses owner-based access patterns with the {entity_id} token
+- The {entity_id} token is automatically replaced with the user's unique identifier during operations
+- Files are organized into logical paths:
+  - `/notes/{entity_id}/*` for files directly associated with notes
+  - `/resources/{entity_id}/*` for general user resources
+  - `/shared/{entity_id}/*` for resources that can be read by other authenticated users
+- Each user can only access their own files, with the exception of shared resources
+- When uploading files, make sure to prefix the key with the appropriate path (notes/, resources/, shared/)
+- This approach maintains strict data isolation while still enabling sharing when needed
