@@ -94,3 +94,26 @@ Yjs uses Conflict-free Replicated Data Types (CRDTs) to enable real-time collabo
 - `uuid`: Utility for generating unique identifiers
 
 AWS Amplify provides authentication, storage, API, and other cloud services. The S3 client enables file upload/download functionality for note attachments.
+
+## Backend Infrastructure
+
+The application uses AWS Amplify Gen 2 for backend infrastructure, which provides a TypeScript-first approach to defining cloud resources:
+
+### Amplify Directory Structure
+
+- `amplify/`: Contains all backend configuration and resources
+  - `backend.ts`: The main entry point that defines and exports the backend resources
+  - `tsconfig.json`: TypeScript configuration specific to the Amplify backend
+  - `auth/`: Contains authentication configuration
+    - `resource.ts`: Defines the Cognito user pool settings for authentication
+  - `data/`: Contains data model and API configuration
+    - `resource.ts`: Defines the GraphQL schema and authorization rules
+  - `package.json`: Dependencies specific to the Amplify backend
+
+### Backend Resources
+
+- **Authentication**: Implemented with AWS Cognito, configured for email-based login
+- **Data API**: GraphQL API implemented with AWS AppSync, using the schema defined in `data/resource.ts`
+- **Database**: DynamoDB tables created based on the data models defined in the GraphQL schema
+
+The Amplify backend uses Infrastructure as Code principles, allowing for version control, reproducibility, and easier collaboration on backend changes.

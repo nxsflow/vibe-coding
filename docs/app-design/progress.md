@@ -59,3 +59,35 @@
 - Tiptap (v2.11.5) is based on ProseMirror and provides a rich text editing experience with extensible functionality
 - Yjs (v13.6.24) and y-prosemirror (v1.2.17) enable real-time collaboration capabilities
 - AWS Amplify (v6.13.5) serves as the backend framework for authentication, storage, and API functionality
+
+### Step 3: Initialize AWS Amplify Gen 2 (Completed)
+
+**Date:** 2025-03-19
+
+**Actions Taken:**
+
+- Installed AWS Amplify Gen 2 dependencies:
+  - `@aws-amplify/backend` for defining backend resources
+  - `@aws-amplify/backend-cli` for CLI commands
+- Initialized the Amplify project using `npx create-amplify@latest`
+- Created baseline Amplify configuration:
+  - Generated `amplify/backend.ts` as the main backend definition
+  - Generated default auth configuration with email login
+  - Generated default data resource with a Todo model schema
+
+**Test Results:**
+
+- Verified the Amplify directory structure was created correctly
+- Confirmed the auth and data resources were properly generated
+- Sandbox deployment requires AWS credentials which would be set up in a real environment
+
+**Next Step:**
+
+- Proceed to Step 4: Define Authentication with AWS Cognito
+
+**Notes for Developers:**
+
+- AWS Amplify Gen 2 uses a TypeScript-first approach for defining backend resources
+- The generated auth resource is configured with email-based login by default
+- The data resource includes a simple Todo model as a starting point
+- The backend definition in `backend.ts` imports and combines all resources
