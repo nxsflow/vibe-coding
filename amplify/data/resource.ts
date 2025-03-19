@@ -1,17 +1,117 @@
-import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
-/*== STEP 1 ===============================================================
-The section below creates a Todo database table with a "content" field. Try
-adding a new "isDone" field as a boolean. The authorization rule below
-specifies that any unauthenticated user can "create", "read", "update", 
-and "delete" any "Todo" records.
-=========================================================================*/
 const schema = a.schema({
-  Todo: a
+  NoteType: a.enum(["MEETING", "READING", "THINKING"]),
+  Note: a
     .model({
-      content: a.string(),
+      title: a.string().required(),
+      content: a.json().required(), // JSON string containing blocks
+      type: a.ref("NoteType").required(),
+      people: a.hasMany("PersonNote", "noteId"),
+      projects: a.hasMany("ProjectNote", "noteId"),
+      companies: a.hasMany("CompanyNote", "noteId"),
+      bookId: a.id(),
+      book: a.belongsTo("Book", "bookId"),
+      articleId: a.id(),
+      article: a.belongsTo("Article", "articleId"),
+      resources: a.hasMany("Resource", "noteId"),
+      versions: a.hasMany("NoteVersion", "noteId"),
+      createdAt: a.datetime().required(),
+      updatedAt: a.datetime().required(),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner()])
+    .secondaryIndexes((index) => [
+      index("type").sortKeys(["createdAt"]),
+      index("type").sortKeys(["updatedAt"]),
+    ]),
+
+  Person: a
+    .model({
+      name: a.string().required(),
+      notes: a.hasMany("PersonNote", "personId"),
+    })
+    .authorization((allow) => [allow.owner()]),
+  PersonNote: a
+    .model({
+      personId: a.id().required(),
+      person: a.belongsTo("Person", "personId"),
+      noteId: a.id().required(),
+      note: a.belongsTo("Note", "noteId"),
+      blockId: a.string().required(),
+    })
+    .authorization((allow) => [allow.owner()]),
+
+  Project: a
+    .model({
+      name: a.string().required(),
+      notes: a.hasMany("ProjectNote", "projectId"),
+    })
+    .authorization((allow) => [allow.owner()]),
+  ProjectNote: a
+    .model({
+      projectId: a.id().required(),
+      project: a.belongsTo("Project", "projectId"),
+      noteId: a.id().required(),
+      note: a.belongsTo("Note", "noteId"),
+      blockId: a.string().required(),
+    })
+    .authorization((allow) => [allow.owner()]),
+
+  Book: a
+    .model({
+      title: a.string().required(),
+      authors: a.string().required(),
+      year: a.integer().required(),
+      notes: a.hasMany("Note", "bookId"),
+    })
+    .authorization((allow) => [allow.owner()]),
+
+  Article: a
+    .model({
+      title: a.string().required(),
+      authors: a.string().required(),
+      publishedAt: a.datetime().required(),
+      url: a.string().required(),
+      note: a.hasOne("Note", "articleId"),
+    })
+    .authorization((allow) => [allow.owner()]),
+
+  Company: a
+    .model({
+      name: a.string().required(),
+      notes: a.hasMany("CompanyNote", "companyId"),
+    })
+    .authorization((allow) => [allow.owner()]),
+  CompanyNote: a
+    .model({
+      companyId: a.id().required(),
+      company: a.belongsTo("Company", "companyId"),
+      noteId: a.id().required(),
+      note: a.belongsTo("Note", "noteId"),
+      blockId: a.string().required(), // ID of the block within the note content
+    })
+    .authorization((allow) => [allow.owner()]),
+
+  ResourceType: a.enum(["PDF", "Image"]),
+  Resource: a
+    .model({
+      type: a.ref("ResourceType").required(),
+      s3Key: a.string().required(),
+      summary: a.string(),
+      noteId: a.id().required(),
+      note: a.belongsTo("Note", "noteId"),
+      blockId: a.string().required(), // ID of the block within the note content
+    })
+    .authorization((allow) => [allow.owner()]),
+
+  NoteVersion: a
+    .model({
+      noteId: a.id().required(),
+      note: a.belongsTo("Note", "noteId"),
+      content: a.json().required(),
+      versionNumber: a.integer().required(),
+    })
+    .authorization((allow) => [allow.owner()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -19,35 +119,9 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'iam',
+    defaultAuthorizationMode: "userPool",
+    apiKeyAuthorizationMode: {
+      expiresInDays: 30,
+    },
   },
 });
-
-/*== STEP 2 ===============================================================
-Go to your frontend source code. From your client-side code, generate a
-Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
-WORK IN THE FRONTEND CODE FILE.)
-
-Using JavaScript or Next.js React Server Components, Middleware, Server 
-Actions or Pages Router? Review how to generate Data clients for those use
-cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
-=========================================================================*/
-
-/*
-"use client"
-import { generateClient } from "aws-amplify/data";
-import type { Schema } from "@/amplify/data/resource";
-
-const client = generateClient<Schema>() // use this Data client for CRUDL requests
-*/
-
-/*== STEP 3 ===============================================================
-Fetch records from the database and use them in your frontend component.
-(THIS SNIPPET WILL ONLY WORK IN THE FRONTEND CODE FILE.)
-=========================================================================*/
-
-/* For example, in a React component, you can use this snippet in your
-  function's RETURN statement */
-// const { data: todos } = await client.models.Todo.list()
-
-// return <ul>{todos.map(todo => <li key={todo.id}>{todo.content}</li>)}</ul>

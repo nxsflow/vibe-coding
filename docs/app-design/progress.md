@@ -120,3 +120,49 @@
 - MFA is set as optional, allowing users to choose whether to enable the additional security layer
 - Email verification is automatically enabled when using email-based login
 - In a production environment, testing would involve using the AWS Cognito console to verify the user pool configuration
+
+### Step 5: Define GraphQL API with AWS AppSync (Completed)
+
+**Date:** 2025-03-19
+
+**Actions Taken:**
+
+- Enhanced the data model in `amplify/data/resource.ts` to define the schema for the note-taking application
+- Implemented the following models using a domain-driven design approach:
+  - `Note`: Core entity storing title, content (as JSON), type, and relationships to resources
+  - Domain-specific resource models:
+    - `Person`: For people mentioned in notes
+    - `Project`: For projects referenced in notes
+    - `Company`: For companies discussed in notes
+    - `Book`: For book references with title, authors, and year
+    - `Article`: For article references with title, authors, and URL
+  - Junction models for block-level associations:
+    - `PersonNote`: Links specific blocks to people
+    - `ProjectNote`: Links specific blocks to projects
+    - `CompanyNote`: Links specific blocks to companies
+  - `Resource`: For file attachments (PDFs, images) with block-level references and summaries
+  - `NoteVersion`: For tracking version history of notes with version numbers
+- Applied owner-based authorization for all models to ensure data security
+- Added secondary indexes with sort keys to optimize queries by type, creation date, and update date
+- Defined clear relationships between entities using hasMany, hasOne, and belongsTo patterns
+
+**Test Results:**
+
+- Validated the data schema compiles without linting errors
+- In a production environment, this would generate the necessary DynamoDB tables and AppSync resolvers
+
+**Next Step:**
+
+- Proceed to Step 6: Set Up File Storage with AWS S3
+
+**Notes for Developers:**
+
+- Content is stored as JSON rather than string, allowing for structured block data
+- Block-level references are implemented through junction tables with blockId fields
+- Each domain-specific entity (Person, Project, etc.) has its own model and junction table
+- Secondary indexes include sort keys for efficient time-based queries
+- Resource model handles file attachments with type differentiation (PDF vs Image)
+- Note versions track the evolution of content over time with sequential version numbers
+- AWS Amplify automatically handles the id, createdAt, and updatedAt fields
+- All models use owner-based authorization for data security
+- Collaboration capabilities have been deferred to a later implementation phase

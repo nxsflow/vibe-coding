@@ -122,3 +122,67 @@ The application uses AWS Amplify Gen 2 for backend infrastructure, which provide
 - **Database**: DynamoDB tables created based on the data models defined in the GraphQL schema
 
 The Amplify backend uses Infrastructure as Code principles, allowing for version control, reproducibility, and easier collaboration on backend changes.
+
+## Data Model Architecture
+
+The application's data model is built around a domain-driven design with specialized entities representing real-world concepts:
+
+### Core Entities
+
+- **Note**: The primary content entity that stores:
+  - Metadata (title, type, creation/update timestamps)
+  - Content as a structured JSON object representing blocks
+  - Relationships to various domain-specific entities and file resources
+
+### Domain-Specific Entities
+
+- **Person**: Represents people referenced in notes.
+- **Project**: Represents projects discussed in notes.
+- **Company**: Represents organizations mentioned in notes.
+- **Book**: Represents book references with title, authors, and publication year.
+- **Article**: Represents article references with title, authors, publication date, and URL.
+
+### Junction Entities
+
+The model uses junction tables to create block-level associations between notes and domain entities:
+
+- **PersonNote**: Links a specific block in a note to a person.
+- **ProjectNote**: Links a specific block in a note to a project.
+- **CompanyNote**: Links a specific block in a note to a company.
+
+These junction tables include a blockId field to identify exactly which block within a note's content refers to the entity.
+
+### File Entities
+
+- **Resource**: Represents file attachments (PDFs, images) referenced in notes, including:
+  - File type classification
+  - S3 storage key
+  - Optional LLM-generated summary
+  - Block-level reference within the note
+
+### Version Management
+
+- **NoteVersion**: Stores historical versions of notes for version history and recovery, including:
+  - Complete content snapshot
+  - Sequential version numbering
+  - Relationship to the parent note
+
+### Design Considerations
+
+- **JSON Content Structure**: Note content is stored as JSON rather than plain text, allowing for structured representation of blocks and their properties.
+
+- **Domain-Specific Models**: Rather than a generic "Resource" approach, the schema uses specialized models for different entity types (Person, Project, etc.) to enable type-specific properties and relationships.
+
+- **Block-Level References**: All references to entities and resources are made at the block level, enabling precise annotation and retrieval.
+
+- **Secondary Indexes**: The data model includes secondary indexes with sort keys to optimize common query patterns:
+
+  - Finding notes by type and creation date
+  - Finding notes by type and last update date
+  - Retrieving entities associated with specific notes or blocks
+
+- **Authorization**: All entities use owner-based authorization to ensure data security, with collaboration features planned for future implementation.
+
+- **Automatic Fields**: AWS Amplify automatically handles id, createdAt, and updatedAt fields, simplifying schema definition and ensuring consistent timestamps.
+
+This domain-driven architecture enables semantic organization of notes and their relationships to real-world entities, while the block-level reference system allows for fine-grained annotation and intelligent retrieval of content.
