@@ -112,7 +112,12 @@ The application uses AWS Amplify Gen 2 for backend infrastructure, which provide
 
 ### Backend Resources
 
-- **Authentication**: Implemented with AWS Cognito, configured for email-based login
+- **Authentication**: Implemented with AWS Cognito, configured for email-based login with optional multi-factor authentication:
+  - `amplify/auth/resource.ts`: Defines authentication configuration with:
+    - Email-based login as the primary authentication method
+    - Optional TOTP (Time-based One-Time Password) multi-factor authentication
+    - Automatic email verification for user accounts
+    - Foundation for secure user authentication workflows
 - **Data API**: GraphQL API implemented with AWS AppSync, using the schema defined in `data/resource.ts`
 - **Database**: DynamoDB tables created based on the data models defined in the GraphQL schema
 

@@ -91,3 +91,32 @@
 - The generated auth resource is configured with email-based login by default
 - The data resource includes a simple Todo model as a starting point
 - The backend definition in `backend.ts` imports and combines all resources
+
+### Step 4: Define Authentication with AWS Cognito (Completed)
+
+**Date:** 2025-03-19
+
+**Actions Taken:**
+
+- Enhanced the authentication configuration in `amplify/auth/resource.ts`:
+  - Configured email-based login as the primary authentication method
+  - Disabled phone and username login options for clarity
+  - Added multi-factor authentication (MFA) support with TOTP (Time-based One-Time Password)
+  - Set MFA as optional to provide users with enhanced security without making it mandatory
+
+**Test Results:**
+
+- Validated the TypeScript configuration for auth with no linting errors
+- Attempted to test with Amplify sandbox, but AWS credentials would be required in a real environment
+- In a production environment, this would generate a Cognito User Pool with the specified authentication options
+
+**Next Step:**
+
+- Proceed to Step 5: Define GraphQL API with AWS AppSync
+
+**Notes for Developers:**
+
+- The MFA configuration uses TOTP (Time-based One-Time Password), requiring users to use an authenticator app
+- MFA is set as optional, allowing users to choose whether to enable the additional security layer
+- Email verification is automatically enabled when using email-based login
+- In a production environment, testing would involve using the AWS Cognito console to verify the user pool configuration
