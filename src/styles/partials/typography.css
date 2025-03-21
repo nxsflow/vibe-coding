@@ -27,7 +27,7 @@
   }
 
   mark {
-    @apply bg-red-500 rounded-sm decoration-clone text-inherit py-1 px-0 dark:bg-red-400;
+    @apply bg-red-500 rounded-xs decoration-clone text-inherit py-1 px-0 dark:bg-red-400;
   }
 
   span > mark[data-color] {

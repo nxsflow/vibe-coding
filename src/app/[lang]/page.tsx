@@ -17,10 +17,7 @@ const HomePage: FC<HomePageProps> = async ({ params }) => {
         <h2 className="mt-6 text-2xl">{dict.welcome}</h2>
         <p className="mt-3 text-xl max-w-xl">{dict.description}</p>
         <div className="flex flex-wrap items-center justify-center max-w-md mt-6">
-          <Link
-            href="/notes"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
+          <Link href="/notes" className="p-2 mt-6 text-left rounded-xl">
             <h3 className="text-2xl font-bold">{dict.getStarted} &rarr;</h3>
           </Link>
         </div>

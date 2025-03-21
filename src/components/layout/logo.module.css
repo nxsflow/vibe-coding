@@ -1,0 +1,10 @@
+.logoIcon {
+  background: url("/icon.png") no-repeat center/3rem;
+  filter: var(--logo-filter);
+}
+
+@media (min-width: 768px) {
+  .logoIcon {
+    background-size: 4rem;
+  }
+}
