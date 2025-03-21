@@ -208,3 +208,113 @@
 - Each user can only access their own files, with the exception of shared resources
 - When uploading files, make sure to prefix the key with the appropriate path (notes/, resources/, shared/)
 - This approach maintains strict data isolation while still enabling sharing when needed
+
+### Step 7: Integrate Amplify Auth in the Frontend (Completed)
+
+**Date:** 2025-03-21
+
+**Actions Taken:**
+
+- Configured AWS Amplify for frontend authentication integration:
+  - Set up Amplify initialization in the entry point of the application
+  - Configured OAuth and authentication flows according to requirements
+  - Ensured authentication state persistence and proper error handling
+- Created protected routes that require authentication:
+  - Implemented middleware to check authentication status
+  - Added redirects for unauthenticated users
+  - Set up proper route handling for auth-related paths
+
+**Test Results:**
+
+- Verified that Amplify Auth is properly initialized
+- Tested authentication state management with browser refresh
+- Confirmed protected routes require authentication
+
+**Next Step:**
+
+- Proceed to Step 8: Create a Login Page
+
+**Notes for Developers:**
+
+- Authentication is handled by AWS Cognito through the Amplify Auth module
+- The application uses a token-based authentication approach with refresh tokens
+- Authentication state is persisted in localStorage with proper security measures
+- Protected routes are enforced by a middleware that checks the authentication token
+
+### Step 8: Create a Login Page (Completed)
+
+**Date:** 2025-03-21
+
+**Actions Taken:**
+
+- Created custom authentication components to replace the default Amplify UI authenticator:
+  - Implemented SignIn component with email/password login
+  - Created SignUp component with proper validation and error handling
+  - Developed ForgotPassword and ResetPassword components for password recovery
+  - Built ConfirmSignUp component for email verification after registration
+  - Added MFA component for multi-factor authentication challenges
+- Implemented a simplified, internationalized routing structure for authentication:
+  - Created a dynamic routing pattern under `/[lang]/auth/[step]` to handle all auth flows
+  - This structure supports different languages via the `[lang]` parameter
+  - The `[step]` parameter dynamically renders the appropriate authentication component
+  - Simplified maintenance by consolidating all auth routes under a single dynamic pattern
+- Implemented a shared Auth layout with proper styling and redirection logic
+
+**Test Results:**
+
+- Verified all authentication pages load correctly with proper styling and internationalization
+- Tested sign-in and sign-up flows with validation
+- Confirmed password recovery and email verification processes work
+- Validated that MFA challenges are properly handled
+- Tested language switching to verify internationalization support
+
+**Next Step:**
+
+- Proceed to Step 9: Implement Sign-Out Functionality
+
+**Notes for Developers:**
+
+- Each authentication component is built as a client component with the "use client" directive
+- Components use React hooks for state management and Next.js navigation
+- Error handling includes user-friendly messages for common authentication errors
+- Form validation includes both client-side and server-side (through Cognito) validation
+- The authentication layout includes an automatic redirect for authenticated users
+- The dynamic routing system allows for easy expansion to additional auth steps without route changes
+- Internationalization is handled at the route level for all auth components
+
+### Step 9: Implement Sign-Out Functionality (Completed)
+
+**Date:** 2025-03-21
+
+**Actions Taken:**
+
+- Created a versatile SignOut component with multiple display options:
+  - Implemented a standard button variant for primary actions
+  - Added a link variant for less prominent placements
+  - Included styling options through className prop for flexibility
+- Made the component reusable across different parts of the application:
+  - Used in the main navigation header
+  - Added to user profile dropdown
+  - Incorporated in mobile navigation menu
+- Implemented proper sign-out logic:
+  - Called Amplify's signOut method to invalidate the session
+  - Added redirect to the sign-in page after successful sign-out
+  - Included error handling for sign-out failures
+
+**Test Results:**
+
+- Verified the sign-out button appears correctly in both variants
+- Tested that clicking sign-out properly ends the user session
+- Confirmed redirection to the sign-in page works after sign-out
+
+**Next Step:**
+
+- Proceed to Step 10: Create the Note Editor Component
+
+**Notes for Developers:**
+
+- The SignOut component accepts a `variant` prop to control its appearance
+- It also accepts a `className` prop for additional styling customization
+- The sign-out process includes clearing all authentication tokens
+- The component uses loading state to prevent multiple clicks during sign-out
+- Error handling is implemented with console logging for troubleshooting

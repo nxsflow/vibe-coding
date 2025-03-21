@@ -7,7 +7,7 @@ import { runWithAmplifyServerContext } from "@/utils/amplify-config";
 const LANG_COOKIE_NAME = "preferredLanguage";
 const locales = ["en-US", "de-DE", "de"] as const;
 export type SupportedLocales = (typeof locales)[number];
-export type Dictionary<T = Record<string, string>> = {
+export type Dictionary<T extends Record<string, string>> = {
   [locale in SupportedLocales]: T;
 };
 
@@ -42,7 +42,7 @@ const middleware = async (request: NextRequest) => {
   const { pathname } = request.nextUrl;
 
   // Check if this is a login path
-  const isLoginPath = pathname.includes("/login");
+  const isLoginPath = pathname.includes("/auth/");
   // Check if the pathname already has a locale
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
@@ -79,7 +79,7 @@ const middleware = async (request: NextRequest) => {
 
   if (!authenticated) {
     // If not authenticated, redirect to login page
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/auth/sign-in", request.url));
   }
 };
 

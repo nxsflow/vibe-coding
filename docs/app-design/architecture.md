@@ -240,3 +240,123 @@ The application implements a secure file storage system using AWS S3 for storing
   - Content type validation to prevent security issues
 
 This owner-based storage architecture provides a robust foundation for the file attachment features while maintaining strong security through data isolation and selective sharing.
+
+## Authentication Architecture
+
+The application implements a secure, user-friendly authentication system based on AWS Cognito. Instead of using the default Amplify UI components, custom authentication components have been developed to provide greater control over styling, user experience, and behavior.
+
+### Authentication Components
+
+The authentication system consists of the following core components:
+
+1. **SignIn Component (`components/auth/SignIn.tsx`)**:
+
+   - Handles user login with email and password
+   - Manages error states for invalid credentials
+   - Supports navigation to password recovery and sign-up flows
+   - Handles redirection based on authentication challenges (MFA, new password required)
+
+2. **SignUp Component (`components/auth/SignUp.tsx`)**:
+
+   - Provides new user registration with email and password
+   - Implements client-side validation for password matching
+   - Handles the transition to email verification flow
+   - Includes automatic sign-in option after successful registration
+
+3. **ConfirmSignUp Component (`components/auth/ConfirmSignUp.tsx`)**:
+
+   - Verifies user email addresses after registration
+   - Supports resending verification codes if needed
+   - Provides clear success and error feedback
+   - Redirects to sign-in upon successful verification
+
+4. **ForgotPassword and ResetPassword Components**:
+
+   - `ForgotPassword.tsx`: Initiates the password reset process by requesting a verification code
+   - `ResetPassword.tsx`: Completes the password reset with the verification code and new password
+   - Both components include comprehensive error handling for various failure cases
+
+5. **MFA Component (`components/auth/MFA.tsx`)**:
+
+   - Handles multi-factor authentication challenges
+   - Supports TOTP (Time-based One-Time Password) verification
+   - Provides specialized input for authentication codes
+   - Manages the continuation of the authentication flow after verification
+
+6. **SignOut Component (`components/auth/SignOut.tsx`)**:
+   - Implements secure user logout functionality
+   - Offers multiple visual variants (button or link)
+   - Supports custom styling through className prop
+   - Handles redirect to sign-in page after successful logout
+
+### Authentication Routes
+
+The authentication system is organized with a dynamic, internationalized routing structure:
+
+- **Dynamic Routing Pattern**: `/[lang]/auth/[step]`
+  - `[lang]`: Provides internationalization support (e.g., 'en', 'fr', 'es')
+  - `[step]`: Dynamically determines which authentication component to render
+
+This single route pattern handles all authentication scenarios:
+
+- Sign-in
+- Sign-up
+- Email verification
+- Password reset (request and confirmation)
+- Multi-factor authentication
+
+The dynamic routing approach provides several key advantages:
+
+- Simplified maintenance with a single route handler
+- Built-in internationalization for all authentication pages
+- Easy addition of new authentication steps without creating new routes
+- Consistent URL structure and user experience
+
+### Authentication Flows
+
+The authentication architecture supports several key authentication flows:
+
+1. **Sign-Up Flow**:
+
+   - User creates account with email and password
+   - Verification code is sent to the user's email
+   - User confirms email by entering the verification code
+   - Upon confirmation, the user is redirected to sign-in or automatically signed in
+
+2. **Sign-In Flow**:
+
+   - User enters email and password credentials
+   - If MFA is enabled, the user is prompted for verification code
+   - If a temporary password is being used, the user is prompted to set a new password
+   - Upon successful authentication, the user is redirected to the application home page
+
+3. **Password Recovery Flow**:
+
+   - User requests password reset by providing their email
+   - Reset code is sent to the user's email
+   - User sets a new password using the reset code
+   - Upon successful password reset, the user is redirected to sign-in
+
+4. **Sign-Out Flow**:
+   - User initiates sign-out from any authenticated page
+   - Session is terminated and tokens are cleared
+   - User is redirected to the sign-in page
+
+### Authentication Guard
+
+The application implements authentication protection through:
+
+1. **Auth Layout (`app/[lang]/auth/layout.tsx`)**:
+
+   - Redirects authenticated users away from auth pages
+   - Provides consistent styling for all authentication pages
+   - Shows application branding and description
+   - Handles language-specific content based on the `[lang]` parameter
+
+2. **Protected Route Middleware**:
+   - Verifies authentication tokens for protected routes
+   - Redirects unauthenticated users to the sign-in page
+   - Uses AWS Amplify's `fetchAuthSession` to validate the user's session
+   - Preserves the user's language preference during redirects
+
+This authentication architecture provides a robust, secure foundation for the application while maintaining a clean, consistent user experience through custom-designed interface components and internationalized routes.

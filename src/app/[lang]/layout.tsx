@@ -5,7 +5,6 @@ import { SupportedLocales, Dictionary } from "@/middleware";
 import { Merriweather, Merriweather_Sans } from "next/font/google";
 import ConfigureAmplifyClientSide from "@/components/amplify/ConfigureAmplify";
 import "@/styles/globals.css";
-import "@aws-amplify/ui-react/styles.css";
 import { cn } from "@/utils";
 
 interface RootLayoutProps {
@@ -61,7 +60,7 @@ export const generateMetadata = async ({
   params,
 }: GenerateMetadataProps): Promise<Metadata> => {
   const { lang } = await params;
-  const description = dictionary[lang];
+  const { description } = dictionary[lang];
 
   return {
     title,
@@ -99,8 +98,14 @@ export const generateMetadata = async ({
   };
 };
 
-const dictionary: Dictionary<string> = {
-  "en-US": "Take notes. Get organized.",
-  "de-DE": "Notizen erfassen, Organisation gewinnen.",
-  de: "Notizen erfassen, Organisation gewinnen.",
+type LayoutDictionary = Record<"description", string>;
+const de: LayoutDictionary = {
+  description: "Notizen erfassen, Organisation gewinnen.",
+};
+const dictionary: Dictionary<LayoutDictionary> = {
+  "en-US": {
+    description: "Take notes. Get organized.",
+  },
+  "de-DE": de,
+  de,
 };
