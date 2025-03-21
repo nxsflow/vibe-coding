@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --dark: #191a23;
+    --light: #f3f3f3;
+    --green: #b9ff66;
+
+    --radius: 0.5rem;
+
+    --background: 56 100% 99.5%;
+    --foreground: 56 100% 5%;
+    --theme: 56 100% 68%;
+    --logo-filter: hue-rotate(321deg) brightness(108%) saturate(96%);
+
+    [data-theme="work"] {
+      --background: 220 100% 99.5%;
+      --foreground: 220 100% 5%;
+      --theme: 220 100% 68%;
+      --logo-filter: hue-rotate(152deg) brightness(67%) saturate(440%);
+    }
+
+    [data-theme="hobby"] {
+      --background: 160 100% 99.5%;
+      --foreground: 160 100% 5%;
+      --theme: 160 100% 68%;
+      --logo-filter: hue-rotate(44deg) brightness(122%) saturate(79%);
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background dark:bg-foreground text-foreground dark:text-background;
+    font-size: 20px;
+  }
+}

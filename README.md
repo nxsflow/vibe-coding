@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# nexflow.it – App
 
-## Getting Started
+This is the note taking app that helps you nurture your relationships and achieve your goals.
 
-First, run the development server:
+## Manual preparation
 
-```bash
+The following things need to be manually prepared so that the app works properly.
+
+### Customized domain
+
+The app expects to run on the domain `app.nexflow.it`. It makes things easier when their is a Route 53 Hosted Zone for this domain. In my domain provider I add AWS Route 53 as my external nameserver.
+
+Once the app is hosted on Amplify, I added `app.nexflow.it` as a custom domain. I also enabled the firewall and removed access to the Amplify original domain (`amplifyapp.com`).
+
+### Email (SES)
+
+In SES I create an Email identity for the sender Email `notifications@nxsflow.com` and for the domain `nxsflow.com`. I created a Route 53 Hosted Zone for this domain as well in order to simplify the creation of DNS records for the domain identity. I also created a configuration set and added it to the domain identity. It helps gets insights on reputation and archive sent emails.
+
+For the production account I also requested production access for SES.
+
+### TipTap Pro Extensions
+
+You need to add this line to `~/.zshrc`:
+
+```zsh
+export TIPTAP_PRO_TOKEN=THE_TOKEN
+```
+
+Replace `THE_TOKEN` with the token you find on the [TipTap Settings](https://cloud.tiptap.dev/pro-extensions).
+
+When deploying to AWS Amplify make sure you add `TIPTAP_PRO_TOKEN` as an environment variable so the TipTap Pro packages can be installed when deploying changes.
+
+## Development
+
+Run the development server:
+
+```zsh
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

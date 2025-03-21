@@ -1,5 +1,5 @@
 ---
-description: When a requests has dependencies to the app's real-rime collaboration features.
+description: When a requests has dependencies to the app's real-time collaboration features.
 globs: 
 alwaysApply: false
 ---
