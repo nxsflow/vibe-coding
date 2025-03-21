@@ -359,3 +359,44 @@
 - Tiptap's StarterKit extension provides basic formatting capabilities out of the box
 - The component is designed to be reusable across different note-related features
 - We've set up the structure to easily extend with additional extensions in future steps
+
+### Step 11: Add Markdown Formatting (Completed)
+
+**Date:** 2025-03-21
+
+**Actions Taken:**
+
+- Enhanced the editor component to support markdown shortcuts:
+  - Configured Tiptap's StarterKit for default markdown shortcuts
+  - Added support for headings (# Heading 1, ## Heading 2, etc.)
+  - Implemented shortcuts for formatting (bold, italic, lists, blockquotes, etc.)
+  - Added placeholder extension for better user experience
+- Added internationalization support:
+  - Created placeholder text in multiple languages
+  - Implemented a type-safe editor props interface with language support
+- Created a test page for markdown formatting:
+  - Added a markdown reference guide showing available shortcuts
+  - Implemented a test area with raw HTML output display
+  - Added input field for note titles
+
+**Test Results:**
+
+- Successfully verified that markdown shortcuts convert to formatted text:
+  - Heading syntax (# for h1, ## for h2, etc.) creates proper heading elements
+  - Formatting shortcuts (**bold**, _italic_) apply correct styling
+  - List markers (-, 1.) create appropriate list structures
+  - Block syntax (>) creates blockquotes
+  - Horizontal rule syntax (---) inserts dividers
+- Confirmed that the editor state updates correctly when content changes
+
+**Next Step:**
+
+- Proceed to Step 12: Implement Slash Command Menu
+
+**Notes for Developers:**
+
+- Markdown support is provided through Tiptap's StarterKit, which includes essential extensions
+- The editor uses a client-side only mounting approach to prevent hydration issues
+- User input in markdown syntax is automatically converted to formatted content
+- The component is designed to be extensible for future enhancements like slash commands
+- Placeholder text is available in multiple languages and displays correctly based on the language setting

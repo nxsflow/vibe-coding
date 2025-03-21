@@ -1,0 +1,11 @@
+.ProseMirror {
+  .is-empty::before {
+    @apply text-gray-950/40 dark:text-gray-50/40 float-left h-0 pointer-events-none w-full;
+  }
+
+  &.ProseMirror-focused {
+    .is-empty::before {
+      content: attr(data-placeholder);
+    }
+  }
+}

@@ -1,31 +1,25 @@
 "use client";
 
 import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Document from "@tiptap/extension-document";
-import { useState, useEffect } from "react";
 import "@/styles/editor.css";
+import { SupportedLocales } from "@/middleware";
+import { ExtensionsKit } from "./extensions-kit";
 
-interface EditorProps {
+type EditorProps = {
   initialContent?: string;
   onChange?: (html: string) => void;
   editable?: boolean;
-}
+  lang: SupportedLocales;
+};
 
 export default function Editor({
   initialContent = "",
   onChange,
   editable = true,
+  lang,
 }: EditorProps) {
-  const [isMounted, setIsMounted] = useState(false);
-
   const editor = useEditor({
-    extensions: [
-      StarterKit.configure({ document: false }),
-      Document.extend({
-        content: "heading block+",
-      }),
-    ],
+    extensions: ExtensionsKit({ lang }),
     immediatelyRender: false,
     shouldRerenderOnTransaction: false,
     autofocus: true,
@@ -35,15 +29,6 @@ export default function Editor({
       onChange?.(editor.getHTML());
     },
   });
-
-  // Handle client-side only mounting
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
 
   return (
     <div className="animate-fade">

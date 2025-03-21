@@ -367,25 +367,60 @@ The application is organized into several key component categories:
 
 ### Editor Components
 
-The note editor is a central feature of the application, implemented using Tiptap:
+The note editor is a central feature of the application, providing a rich text editing experience with markdown support. The editor is implemented using the Tiptap framework, which is built on top of ProseMirror.
+
+### Core Editor Components
 
 - **Editor Component** (`src/components/editor/Editor.tsx`):
-  - Core editor built with Tiptap and its StarterKit extension
-  - Creates a configurable WYSIWYG editor with the following features:
-    - Content initialization from HTML
-    - Change detection via the `onChange` callback
-    - Configurable placeholder text
-    - Editable/read-only mode toggling
-  - Uses React useEffect for proper client-side only mounting
-  - Styled with Tailwind CSS for a clean, responsive interface
+  - Main editor implementation using Tiptap with the following key features:
+    - Markdown shortcut support for headings, lists, formatting, and more
+    - Internationalized placeholder text
+    - Client-side rendering with proper hydration handling
+    - Clean separation of content and presentation
+    - Type-safe props interface with language support
+  - The component is built as a pure React functional component with hooks
+  - Uses conditional CSS imports for better testing compatibility
+- **Editor Styles** (`src/styles/editor.css` and `src/styles/partials/`):
+  - Tailwind-based styling with custom CSS for editor-specific elements
+  - Modular organization with partials for typography, lists, etc.
+  - Responsive design for various screen sizes
+  - Print-friendly styling for document output
 
-The editor component is designed to be extensible, with plans to add:
+### Markdown Support
 
-- Markdown shortcuts
-- Slash commands
-- Media embedding
-- Mentions
-- Collaborative editing via Yjs
+The editor implements markdown shortcuts through Tiptap's StarterKit extension, enabling users to format content using familiar markdown syntax:
+
+- **Heading Syntax**: `# Heading 1`, `## Heading 2`, etc.
+- **Text Formatting**: `**bold**`, `*italic*`, `~~strikethrough~~`, `` `code` ``
+- **Lists**: `- Bullet item`, `1. Numbered item`
+- **Blockquotes**: `> Quote`
+- **Dividers**: `---` for horizontal rules
+- **Code Blocks**: Triple backticks for code blocks
+
+When a user types markdown syntax, it is automatically converted to the corresponding formatted content in real-time, providing an intuitive editing experience while maintaining a clean visual interface.
+
+### Internationalization
+
+The editor implements a language-aware design:
+
+- Placeholder text is available in multiple languages (English, German)
+- Type-safe language handling with TypeScript union types
+- Default text selection based on the current language context
+- Extensible dictionary approach for adding more languages
+
+This architecture allows the editor to seamlessly integrate with the application's overall internationalization system while maintaining type safety.
+
+### Planned Extensions
+
+The editor architecture is designed to be extended in future implementation phases:
+
+1. **Slash Commands**: A menu of formatting options and actions when typing "/"
+2. **Media Embedding**: Support for images, PDFs, and other file types
+3. **Mentions**: User mentions with "@" syntax and suggestion dropdown
+4. **Collaborative Editing**: Real-time collaboration using Yjs
+5. **Block-Level Tagging**: Ability to tag specific blocks with metadata
+
+These extensions will build upon the existing editor foundation while maintaining its clean, intuitive interface.
 
 ### Page Components
 
