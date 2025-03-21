@@ -1,5 +1,5 @@
-// TODO: add Tailwind configuration
 import plugin from "tailwindcss/plugin";
+import typographyPlugin from "@tailwindcss/typography";
 import animatePlugin from "tailwindcss-animate";
 import theme from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
@@ -53,6 +53,7 @@ const config: Config = {
     },
   },
   plugins: [
+    typographyPlugin,
     animatePlugin,
     plugin(({ addVariant }) => {
       addVariant("intersect", "&:not([no-intersect])");

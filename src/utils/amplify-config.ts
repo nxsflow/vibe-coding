@@ -24,6 +24,6 @@ export async function AuthGetCurrentUserServer() {
     });
     return currentUser;
   } catch (error) {
-    console.error(error);
+    console.error("Error in AuthGetCurrentUserServer:", error);
   }
 }

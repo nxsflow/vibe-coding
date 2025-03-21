@@ -360,3 +360,51 @@ The application implements authentication protection through:
    - Preserves the user's language preference during redirects
 
 This authentication architecture provides a robust, secure foundation for the application while maintaining a clean, consistent user experience through custom-designed interface components and internationalized routes.
+
+## Component Architecture
+
+The application is organized into several key component categories:
+
+### Editor Components
+
+The note editor is a central feature of the application, implemented using Tiptap:
+
+- **Editor Component** (`src/components/editor/Editor.tsx`):
+  - Core editor built with Tiptap and its StarterKit extension
+  - Creates a configurable WYSIWYG editor with the following features:
+    - Content initialization from HTML
+    - Change detection via the `onChange` callback
+    - Configurable placeholder text
+    - Editable/read-only mode toggling
+  - Uses React useEffect for proper client-side only mounting
+  - Styled with Tailwind CSS for a clean, responsive interface
+
+The editor component is designed to be extensible, with plans to add:
+
+- Markdown shortcuts
+- Slash commands
+- Media embedding
+- Mentions
+- Collaborative editing via Yjs
+
+### Page Components
+
+- **Notes Page** (`src/app/[lang]/notes/page.tsx`):
+  - Demonstrates the editor component in a practical context
+  - Provides a title input field for the note
+  - Implements a save button for future backend integration
+  - Uses React state to track note content changes
+
+### Layout Components
+
+- **Navigation** (`src/components/layout/Navigation.tsx`):
+
+  - Implements site-wide navigation with dynamic language path support
+  - Highlights the current active route
+  - Provides links to key application pages
+
+- **Root Layout** (`src/app/[lang]/layout.tsx`):
+  - Wraps all pages with common layout elements
+  - Includes the navigation component
+  - Handles font loading and application-wide styling
+  - Sets up Amplify configuration for authentication

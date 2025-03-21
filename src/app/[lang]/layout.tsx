@@ -4,6 +4,7 @@ import { metadata as theMetadata } from "@/utils/metadata";
 import { SupportedLocales, Dictionary } from "@/middleware";
 import { Merriweather, Merriweather_Sans } from "next/font/google";
 import ConfigureAmplifyClientSide from "@/components/amplify/ConfigureAmplify";
+import Navigation from "@/components/layout/Navigation";
 import "@/styles/globals.css";
 import { cn } from "@/utils";
 
@@ -26,7 +27,14 @@ const RootLayout: FC<RootLayoutProps> = async ({ children, params }) => {
         data-theme="work"
       >
         <ConfigureAmplifyClientSide />
-        {children}
+        <div className="flex flex-col items-center w-full min-h-screen">
+          <Navigation lang={lang} />
+          <div className="w-full lg:w-[64rem] px-2 md:px-8 lg:px-16 mb-4 md:mb-8 flex flex-col flex-1">
+            <main className="w-full flex-1 py-4 sm:py-6 md:py-8">
+              {children}
+            </main>
+          </div>
+        </div>
       </body>
     </html>
   );

@@ -1,7 +1,6 @@
 import { FC } from "react";
 import Link from "next/link";
 import { Dictionary, SupportedLocales } from "@/middleware";
-import { SignOut } from "@/components/auth";
 
 interface HomePageProps {
   params: Promise<{ lang: SupportedLocales }>;
@@ -19,13 +18,12 @@ const HomePage: FC<HomePageProps> = async ({ params }) => {
         <p className="mt-3 text-xl max-w-xl">{dict.description}</p>
         <div className="flex flex-wrap items-center justify-center max-w-md mt-6">
           <Link
-            href={"/login"}
+            href="/notes"
             className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
           >
             <h3 className="text-2xl font-bold">{dict.getStarted} &rarr;</h3>
           </Link>
         </div>
-        <SignOut lang={lang} />
       </main>
     </div>
   );

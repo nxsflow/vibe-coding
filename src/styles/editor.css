@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@config "../../tailwind.config.ts";
+
+.ProseMirror {
+  @apply focus:outline-none flex flex-col w-full min-h-[500px] cursor-text text-base z-0;
+
+  .selection {
+    @apply inline;
+  }
+
+  .selection,
+  *::selection {
+    @apply bg-gray-950/10 dark:bg-gray-50/20 inline;
+  }
+
+  & > .react-renderer {
+    @apply my-12 first:mt-0 last:mb-0;
+  }
+
+  &.resize-cursor {
+    @apply cursor-col-resize;
+  }
+
+  .ProseMirror-gapcursor {
+    @apply relative w-full max-w-2xl mx-auto;
+
+    &:after {
+      @apply border-t-gray-950/40 dark:border-t-gray-50/40 w-full -top-[1.5em] max-w-2xl mx-auto left-0 right-0;
+    }
+  }
+}
+
+@import "./partials/lists.css";
+@import "./partials/typography.css";

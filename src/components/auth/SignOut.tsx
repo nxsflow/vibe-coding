@@ -1,9 +1,10 @@
 "use client";
 
-import { FC, useState } from "react";
-import { signOut } from "aws-amplify/auth";
+import { FC, useEffect, useState } from "react";
+import { signOut, getCurrentUser } from "aws-amplify/auth";
 import { useRouter } from "next/navigation";
 import { Dictionary, SupportedLocales } from "@/middleware";
+import { Hub } from "aws-amplify/utils";
 
 interface SignOutProps {
   lang: SupportedLocales;
@@ -16,8 +17,31 @@ const SignOut: FC<SignOutProps> = ({
   variant = "button",
   lang,
 }) => {
+  const [signedIn, setSignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    getCurrentUser()
+      .then((user) => {
+        setSignedIn(!!user);
+      })
+      .catch(() => {
+        setSignedIn(false);
+      });
+    Hub.listen("auth", (data) => {
+      if (data.payload.event === "signedOut") {
+        setSignedIn(false);
+      }
+      if (data.payload.event === "signedIn") {
+        setSignedIn(true);
+      }
+    });
+  }, []);
+
+  if (!signedIn) {
+    return null;
+  }
 
   const dict = dictionary[lang];
 
