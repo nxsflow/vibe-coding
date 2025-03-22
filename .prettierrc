@@ -4,6 +4,8 @@
   "tabWidth": 2,
   "printWidth": 80,
   "trailingComma": "es5",
+  "tailwindStylesheet": "./src/styles/globals.css",
+  "tailwindConfig": "./tailwind.config.ts",
   "overrides": [
     {
       "files": "*.ts",
@@ -17,5 +19,6 @@
         "parser": "typescript"
       }
     }
-  ]
+  ],
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

@@ -8,10 +8,10 @@ const NotFoundPage = () => {
   const lang: SupportedLocales = "en-US";
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen">
+    <div className="flex min-h-screen w-full flex-col items-center">
       <Header {...{ lang }} />
 
-      <div className="w-full xl:w-[64rem] px-2 md:px-8 lg:px-16 mb-4 md:mb-8 flex flex-col flex-1">
+      <div className="mb-4 flex w-full flex-1 flex-col px-2 md:mb-8 md:px-8 lg:px-16 xl:w-[64rem]">
         <main className="flex-1 justify-center">
           <Message
             title={<>Oops, You&apos;ve Entered the Void!</>}

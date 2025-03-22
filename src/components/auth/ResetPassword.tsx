@@ -64,26 +64,26 @@ const ResetPassword: FC<ResetPasswordProps> = ({ lang }) => {
   };
 
   return (
-    <div className="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-center">
+    <div className="mx-auto w-full max-w-md rounded-lg bg-white p-6 shadow-md">
+      <h2 className="mb-6 text-center text-2xl font-bold">
         {dict.setNewPassword}
       </h2>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+        <div className="mb-4 rounded-md bg-red-100 p-3 text-red-700">
           {error}
         </div>
       )}
 
       {success && (
-        <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md">
+        <div className="mb-4 rounded-md bg-green-100 p-3 text-green-700">
           {dict.passwordResetSuccess}
         </div>
       )}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium mb-1">
+          <label htmlFor="email" className="mb-1 block text-sm font-medium">
             {dict.email}
           </label>
           <input
@@ -91,13 +91,13 @@ const ResetPassword: FC<ResetPasswordProps> = ({ lang }) => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-gray-300 p-2"
             required
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="code" className="block text-sm font-medium mb-1">
+          <label htmlFor="code" className="mb-1 block text-sm font-medium">
             {dict.verificationCode}
           </label>
           <input
@@ -105,7 +105,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({ lang }) => {
             type="text"
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-gray-300 p-2"
             required
           />
           <p className="mt-1 text-xs text-gray-500">
@@ -116,7 +116,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({ lang }) => {
         <div className="mb-4">
           <label
             htmlFor="newPassword"
-            className="block text-sm font-medium mb-1"
+            className="mb-1 block text-sm font-medium"
           >
             {dict.newPassword}
           </label>
@@ -125,7 +125,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({ lang }) => {
             type="password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-gray-300 p-2"
             required
             minLength={8}
           />
@@ -134,7 +134,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({ lang }) => {
         <div className="mb-6">
           <label
             htmlFor="confirmPassword"
-            className="block text-sm font-medium mb-1"
+            className="mb-1 block text-sm font-medium"
           >
             {dict.confirmNewPassword}
           </label>
@@ -143,7 +143,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({ lang }) => {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-gray-300 p-2"
             required
           />
         </div>
@@ -151,7 +151,7 @@ const ResetPassword: FC<ResetPasswordProps> = ({ lang }) => {
         <button
           type="submit"
           disabled={isLoading || success}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+          className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none disabled:opacity-50"
         >
           {isLoading ? dict.resettingPassword : dict.resetPassword}
         </button>

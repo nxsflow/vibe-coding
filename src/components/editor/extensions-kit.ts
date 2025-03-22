@@ -7,6 +7,6 @@ interface ExtensionsKitProps {
 }
 
 export const ExtensionsKit = ({ lang }: ExtensionsKitProps): Extensions => {
-  const { Placeholder, ...rest } = AllExtensions;
-  return [Placeholder(lang), ...Object.values(rest)];
+  const { Placeholder, SlashCommand, ...rest } = AllExtensions;
+  return [Placeholder(lang), SlashCommand({ lang }), ...Object.values(rest)];
 };

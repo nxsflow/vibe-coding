@@ -35,7 +35,7 @@ export default function Editor({
       <div>
         <EditorContent
           editor={editor}
-          className="w-full flex justify-center mx-auto print:w-full print:min-w-0"
+          className="mx-auto flex w-full justify-center print:w-full print:min-w-0"
         />
       </div>
     </div>

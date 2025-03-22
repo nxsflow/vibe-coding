@@ -443,3 +443,97 @@ These extensions will build upon the existing editor foundation while maintainin
   - Includes the navigation component
   - Handles font loading and application-wide styling
   - Sets up Amplify configuration for authentication
+
+## Editor Component Architecture
+
+The note editor is built using Tiptap, a headless, extendable rich-text editor based on ProseMirror. The editor architecture follows a modular approach, separating core functionality from extensions to enable flexible customization.
+
+### Editor Components
+
+- **Core Editor Component** (`src/components/editor/Editor.tsx`):
+
+  - Main wrapper component that sets up the Tiptap editor
+  - Manages content state and event handlers
+  - Configures and initializes extensions
+  - Provides the editing interface
+
+- **Extensions Kit** (`src/components/editor/extensions-kit.ts`):
+  - Centralizes and organizes all editor extensions
+  - Provides a simple API for configuring and enabling extensions
+  - Ensures extensions are properly initialized with required options
+  - Facilitates internationalization by passing language settings to extensions
+
+### Extension Architecture
+
+Extensions are organized into separate modules to maintain a clean separation of concerns:
+
+- **Document Extension** (`src/components/editor/extensions/document.ts`):
+
+  - Defines the root document structure for the editor
+  - Sets up the basic document node schema
+
+- **Heading Extension** (`src/components/editor/extensions/heading.ts`):
+
+  - Configures heading nodes with multiple levels (h1, h2, h3)
+  - Enables proper semantic structure for content
+
+- **StarterKit Extension** (`src/components/editor/extensions/starter-kit.ts`):
+
+  - Bundles common editor functionality:
+    - Basic formatting (bold, italic, underline)
+    - Lists (bullet and ordered)
+    - Code blocks
+    - Blockquotes
+    - Horizontal rules
+  - Excludes functionality managed by custom extensions (document and heading)
+
+- **Placeholder Extension** (`src/components/editor/extensions/placeholder.ts`):
+
+  - Provides placeholder text when the editor is empty
+  - Adapts placeholder text based on the node type (heading vs paragraph)
+  - Supports internationalization with localized placeholder messages
+
+- **Slash Command Extension** (`src/components/editor/extensions/slash-command.ts`):
+  - Implements a slash command menu triggered by typing "/"
+  - Uses ProseMirror plugins to detect the trigger character
+  - Employs storage-based state management to track menu state and text positions
+  - Provides comprehensive keyboard interaction support:
+    - Arrow keys for navigating menu options
+    - Enter/Tab keys for selecting commands
+    - Escape key for dismissing the menu with text cleanup
+  - Intelligently handles text manipulation by:
+    - Tracking the exact position of the slash character
+    - Cleanly deleting command text when a command is selected or the menu is dismissed
+  - Includes robust error handling and resource management
+  - Manages the menu's complete lifecycle (creation, positioning, and destruction)
+  - Leverages tippy.js for floating menu positioning with fallback positioning
+  - Communicates bidirectionally with the SlashCommandMenu React component
+
+### Menu Components
+
+- **Slash Command Menu** (`src/components/editor/menu/SlashCommandMenu.tsx`):
+  - React component that displays formatting options when triggered
+  - Supports keyboard navigation (arrow keys, enter, escape)
+  - Implements a rich set of commands for text formatting
+  - Provides visual feedback for selected commands
+  - Supports internationalization through a localization dictionary
+  - Uses React's forwardRef and useImperativeHandle for exposing methods to parent components
+
+### Styling Architecture
+
+- **Editor Styles** (`src/styles/editor.css`):
+  - Provides base styling for the editor
+  - Imports external dependencies like tippy.js styles
+  - Sets up theming and dark mode support
+  - Organizes styles into logical partials for better maintainability
+
+This modular architecture provides several benefits:
+
+- Clear separation of concerns
+- Easy addition of new extensions
+- Maintainable code through focused components
+- Flexible internationalization
+- Consistent styling
+- Extensible command system
+
+Future editor enhancements can follow this pattern, adding new extensions and menu options while maintaining the established architecture.

@@ -24,7 +24,7 @@ const Profile: FC<ProfileProps> = async ({ lang }) => {
 
   return (
     <div className="absolute right-4 flex items-center text-sm">
-      <Link href="/login">{dict.signIn}</Link>
+      <Link href="/auth/sign-in">{dict.signIn}</Link>
     </div>
   );
 };

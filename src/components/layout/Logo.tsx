@@ -12,11 +12,11 @@ const Logo: FC = () => {
   const router = useRouter();
   return (
     <div
-      className="flex items-center cursor-pointer"
+      className="flex cursor-pointer items-center"
       onClick={() => router.push("/")}
     >
-      <div className={cn(styles.logoIcon, "size-12 md:size-16 block")} />
-      <CurrentContext className="hidden sm:flex uppercase" />
+      <div className={cn(styles.logoIcon, "block size-12 md:size-16")} />
+      <CurrentContext className="hidden uppercase sm:flex" />
     </div>
   );
 };

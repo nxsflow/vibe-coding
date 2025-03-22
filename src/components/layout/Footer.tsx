@@ -12,10 +12,10 @@ const Footer: FC<FooterProps> = async ({ lang }) => {
   const dict = dictionary[lang];
 
   return (
-    <div className="flex flex-col gap-4 text-gray-400 text-sm print:hidden pt-8">
+    <div className="flex flex-col gap-4 pt-8 text-sm text-gray-400 print:hidden">
       <HorizontalLine />
 
-      <div className="relative flex items-center justify-center w-full">
+      <div className="relative flex w-full items-center justify-center">
         <Copyright />
 
         <FooterLink
@@ -27,13 +27,13 @@ const Footer: FC<FooterProps> = async ({ lang }) => {
         <FooterLink
           href="/legal/privacy"
           label={dict.privacy}
-          className="hidden sm:block absolute right-4"
+          className="absolute right-4 hidden sm:block"
         />
 
         <FooterLink
           href="/legal"
           label={dict.legal}
-          className="absolute sm:hidden right-4"
+          className="absolute right-4 sm:hidden"
         />
       </div>
     </div>

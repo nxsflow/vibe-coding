@@ -3,7 +3,7 @@
 @config "../../tailwind.config.ts";
 
 .ProseMirror {
-  @apply focus:outline-none flex flex-col w-full min-h-[500px] cursor-text text-base z-0;
+  @apply z-0 flex min-h-[500px] w-full cursor-text flex-col text-base focus:outline-none;
 
   .selection {
     @apply inline;
@@ -11,7 +11,7 @@
 
   .selection,
   *::selection {
-    @apply bg-gray-950/10 dark:bg-gray-50/20 inline;
+    @apply inline bg-gray-950/10 dark:bg-gray-50/20;
   }
 
   & > .react-renderer {
@@ -23,10 +23,10 @@
   }
 
   .ProseMirror-gapcursor {
-    @apply relative w-full max-w-2xl mx-auto;
+    @apply relative mx-auto w-full max-w-2xl;
 
     &:after {
-      @apply border-t-gray-950/40 dark:border-t-gray-50/40 w-full -top-[1.5em] max-w-2xl mx-auto left-0 right-0;
+      @apply -top-[1.5em] right-0 left-0 mx-auto w-full max-w-2xl border-t-gray-950/40 dark:border-t-gray-50/40;
     }
   }
 }

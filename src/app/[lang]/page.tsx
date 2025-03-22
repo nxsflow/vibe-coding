@@ -11,13 +11,13 @@ const HomePage: FC<HomePageProps> = async ({ params }) => {
   const dict = dictionary[lang];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
+    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+      <main className="flex flex-1 flex-col items-center justify-center px-20 text-center">
         <h1 className="text-6xl font-bold">{dict.title}</h1>
         <h2 className="mt-6 text-2xl">{dict.welcome}</h2>
-        <p className="mt-3 text-xl max-w-xl">{dict.description}</p>
-        <div className="flex flex-wrap items-center justify-center max-w-md mt-6">
-          <Link href="/notes" className="p-2 mt-6 text-left rounded-xl">
+        <p className="mt-3 max-w-xl text-xl">{dict.description}</p>
+        <div className="mt-6 flex max-w-md flex-wrap items-center justify-center">
+          <Link href="/notes" className="mt-6 rounded-xl p-2 text-left">
             <h3 className="text-2xl font-bold">{dict.getStarted} &rarr;</h3>
           </Link>
         </div>

@@ -19,14 +19,14 @@ const Message: FC<Props> = ({
   onClick,
   children,
 }) => (
-  <div className="my-auto p-5 flex flex-col gap-6 items-center">
-    <h2 className="text-red-800 text-center">{title}</h2>
+  <div className="my-auto flex flex-col items-center gap-6 p-5">
+    <h2 className="text-center text-red-800">{title}</h2>
     <div className="max-w-96 text-center text-base">{description}</div>
     {children}
     {href ? (
       <Link
         href={href}
-        className="border border-dark dark:border-light p-2 rounded-md hover:bg-dark dark:hover:bg-light hover:text-light dark:hover:text-dark text-base"
+        className="rounded-md border border-dark p-2 text-base hover:bg-dark hover:text-light dark:border-light dark:hover:bg-light dark:hover:text-dark"
       >
         {label}
       </Link>

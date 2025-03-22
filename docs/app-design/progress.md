@@ -400,3 +400,67 @@
 - User input in markdown syntax is automatically converted to formatted content
 - The component is designed to be extensible for future enhancements like slash commands
 - Placeholder text is available in multiple languages and displays correctly based on the language setting
+
+### Step 12: Implement Slash Command Menu (Completed)
+
+**Date:** 2025-03-21
+
+**Actions Taken:**
+
+- Created a custom Tiptap extension (`slash-command.ts`) for implementing a slash command menu:
+  - Used ProseMirror plugins to detect when a user types "/" in the editor
+  - Implemented a floating menu using tippy.js for positioning
+  - Created a React-based menu component with formatting options
+  - Implemented robust storage-based state management to track menu status and slash positions
+  - Added comprehensive error handling for position calculations and command execution
+  - Created intelligent text position tracking for accurate command text deletion
+- Developed the SlashCommandMenu component (`SlashCommandMenu.tsx`) with the following features:
+  - Support for different formatting commands (headings, lists, quotes, code blocks, etc.)
+  - Keyboard navigation using arrow keys with proper focus management
+  - Localization support for English and German
+  - Visual indicators for selected commands
+  - Proper event handling to prevent editor conflicts
+- Integrated the slash command functionality into the editor:
+  - Added the extension to the extensions kit
+  - Implemented proper lifecycle management for menu creation and destruction
+  - Ensured proper cleanup of resources when the editor is unmounted
+  - Added necessary CSS styles for tippy.js
+- Implemented comprehensive interaction handling:
+  - Proper text deletion when commands are applied or menu is dismissed
+  - Escape key support for canceling commands with text cleanup
+  - Click-outside detection to close the menu when clicking elsewhere
+  - Arrow key navigation without affecting the editor cursor
+  - Enter/Tab key selection without creating new lines
+- Implemented formatting actions for each menu item:
+  - Headings (H1, H2, H3)
+  - Text formatting (bold, italic, strikethrough)
+  - Lists (bullet and ordered)
+  - Blockquotes
+  - Horizontal rules
+  - Code blocks
+
+**Test Results:**
+
+- Successfully triggers the menu when typing "/"
+- Menu displays correctly positioned below the cursor
+- Commands can be selected with mouse or keyboard
+- Formatting is applied correctly when selecting a command
+- Localization works correctly for German and English
+- Menu properly disappears after command execution or when typing continues
+- Properly handles all interaction cases including: keyboard navigation, text filtering, selection, escape key, and click-outside
+- Correctly deletes the slash command text when a command is selected or the menu is dismissed
+
+**Next Step:**
+
+- Proceed to Step 13: Set Up a WebSocket Server
+
+**Notes for Developers:**
+
+- The slash command menu uses the tippy.js library for positioning and display
+- The implementation follows Tiptap's extension pattern with ProseMirror plugins
+- The extension uses storage-based state management to track menu status and text positions
+- Menu items can be easily extended by adding new commands to the SlashCommandMenu component
+- The command menu provides an alternative to markdown shortcuts for formatting
+- For accessibility, both keyboard and mouse interactions are supported
+- The floating menu is dynamically positioned based on the cursor location
+- Error handling provides fallback mechanisms for positioning and cleanup

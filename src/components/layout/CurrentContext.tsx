@@ -36,7 +36,7 @@ export const CurrentContext: FC<CurrentContextProps> = ({ className }) => {
   }, []);
 
   return (
-    <div className={cn("items-center font-bold font-sans mr-4", className)}>
+    <div className={cn("mr-4 items-center font-sans font-bold", className)}>
       {theme}
     </div>
   );

@@ -63,20 +63,20 @@ const SignUp: FC<SignUpProps> = ({ lang }) => {
   };
 
   return (
-    <div className="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-center">
+    <div className="mx-auto w-full max-w-md rounded-lg bg-white p-6 shadow-md">
+      <h2 className="mb-6 text-center text-2xl font-bold">
         {dict.createAccount}
       </h2>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+        <div className="mb-4 rounded-md bg-red-100 p-3 text-red-700">
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium mb-1">
+          <label htmlFor="email" className="mb-1 block text-sm font-medium">
             {dict.email}
           </label>
           <input
@@ -84,13 +84,13 @@ const SignUp: FC<SignUpProps> = ({ lang }) => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-gray-300 p-2"
             required
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-medium mb-1">
+          <label htmlFor="password" className="mb-1 block text-sm font-medium">
             {dict.password}
           </label>
           <input
@@ -98,7 +98,7 @@ const SignUp: FC<SignUpProps> = ({ lang }) => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-gray-300 p-2"
             required
             minLength={8}
           />
@@ -110,7 +110,7 @@ const SignUp: FC<SignUpProps> = ({ lang }) => {
         <div className="mb-6">
           <label
             htmlFor="confirmPassword"
-            className="block text-sm font-medium mb-1"
+            className="mb-1 block text-sm font-medium"
           >
             {dict.confirmPassword}
           </label>
@@ -119,7 +119,7 @@ const SignUp: FC<SignUpProps> = ({ lang }) => {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full rounded-md border border-gray-300 p-2"
             required
           />
         </div>
@@ -127,7 +127,7 @@ const SignUp: FC<SignUpProps> = ({ lang }) => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+          className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none disabled:opacity-50"
         >
           {isLoading ? dict.creatingAccount : dict.signUp}
         </button>

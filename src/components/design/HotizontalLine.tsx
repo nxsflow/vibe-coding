@@ -19,7 +19,7 @@ const HorizontalLine: FC<HorizontalLineProps> = ({
     width={1024}
     height={4}
     className={cn(
-      "w-full h-1",
+      "h-1 w-full",
       !brighter
         ? "[filter:invert(70%)_sepia(10%)_saturate(10%)_hue-rotate(180deg)]"
         : "[filter:invert(90%)_sepia(10%)_saturate(10%)_hue-rotate(180deg)] dark:[filter:invert(30%)_sepia(10%)_saturate(10%)_hue-rotate(180deg)]",
