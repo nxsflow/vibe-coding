@@ -1,8 +1,6 @@
 import { Dictionary, SupportedLocales } from "@/middleware";
-import { AuthGetCurrentUserServer } from "@/utils/amplify-config";
 import Link from "next/link";
 import { FC } from "react";
-import SignOut from "../auth/SignOut";
 
 interface ProfileProps {
   lang: SupportedLocales;
@@ -12,32 +10,23 @@ interface ProfileProps {
 
 const Profile: FC<ProfileProps> = async ({ lang }) => {
   const dict = dictionary[lang];
-  const currentUser = await AuthGetCurrentUserServer();
-
-  if (currentUser) {
-    return (
-      <div className="absolute right-4 flex items-center text-sm">
-        <SignOut lang={lang} />
-      </div>
-    );
-  }
 
   return (
     <div className="absolute right-4 flex items-center text-sm">
-      <Link href="/auth/sign-in">{dict.signIn}</Link>
+      <Link href="https://nexflow.it">{dict.signUp}</Link>
     </div>
   );
 };
 
 export default Profile;
 
-type ProfileDictionary = Record<"signIn", string>;
+type ProfileDictionary = Record<"signUp", string>;
 const de: ProfileDictionary = {
-  signIn: "Anmelden",
+  signUp: "Registrieren",
 };
 const dictionary: Dictionary<ProfileDictionary> = {
   "en-US": {
-    signIn: "Sign in",
+    signUp: "Sign up",
   },
   "de-DE": de,
   de,

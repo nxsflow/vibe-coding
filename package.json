@@ -12,8 +12,6 @@
     "aws:login": "aws sso login --profile nxsflow-staging"
   },
   "dependencies": {
-    "@aws-amplify/adapter-nextjs": "^1.5.5",
-    "@aws-sdk/client-s3": "^3.758.0",
     "@formatjs/intl-localematcher": "^0.6.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
@@ -26,7 +24,6 @@
     "@tiptap/pm": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
-    "aws-amplify": "^6.13.5",
     "base-x": "^5.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -47,8 +44,6 @@
     "yjs": "^13.6.24"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^1.14.3",
-    "@aws-amplify/backend-cli": "^1.5.0",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/lodash": "^4.17.16",
@@ -57,8 +52,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "aws-cdk": "^2.1003.0",
-    "aws-cdk-lib": "^2.180.0",
     "constructs": "^10.4.2",
     "esbuild": "^0.25.1",
     "eslint": "^9",

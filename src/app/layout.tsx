@@ -4,7 +4,6 @@ import { Merriweather, Merriweather_Sans } from "next/font/google";
 import { cn } from "@/utils";
 import { Metadata, Viewport } from "next";
 import { metadata as theMetadata } from "@/utils/metadata";
-import ConfigureAmplifyClientSide from "@/components/amplify/ConfigureAmplify";
 import "@/styles/globals.css";
 
 interface RootLayoutProps {
@@ -21,7 +20,6 @@ const RootLayout: FC<RootLayoutProps> = async ({ children, params }) => {
         className={cn("font-serif antialiased", sans.variable, serif.variable)}
         data-theme="work"
       >
-        <ConfigureAmplifyClientSide />
         {children}
       </body>
     </html>
