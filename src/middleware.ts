@@ -1,8 +1,6 @@
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { type NextRequest, NextResponse } from "next/server";
-import { fetchAuthSession } from "aws-amplify/auth/server";
-import { runWithAmplifyServerContext } from "@/utils/amplify-config";
 
 const LANG_COOKIE_NAME = "preferredLanguage";
 const locales = ["en-US", "de-DE", "de"] as const;
@@ -38,11 +36,8 @@ function getLocale(request: NextRequest): string {
 }
 
 const middleware = async (request: NextRequest) => {
-  const response = NextResponse.next();
   const { pathname } = request.nextUrl;
 
-  // Check if this is a login path
-  const isLoginPath = pathname.includes("/auth/");
   // Check if the pathname already has a locale
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
@@ -52,34 +47,6 @@ const middleware = async (request: NextRequest) => {
   if (!pathnameHasLocale) {
     const locale = getLocale(request);
     return setPreferredLanguage(request, locale);
-  }
-
-  // Handle authentication check for non-login paths
-  if (isLoginPath) return;
-
-  // TODO: better error handling for network errors
-  const authenticated = await runWithAmplifyServerContext({
-    nextServerContext: { request, response },
-    operation: async (contextSpec) => {
-      try {
-        const session = await fetchAuthSession(contextSpec, {});
-        return session.tokens !== undefined;
-      } catch (error) {
-        if (
-          typeof error === "object" &&
-          Object.hasOwn(error as object, "name") &&
-          (error as { name: string }).name === "NetworkError"
-        )
-          return response;
-        console.error(error);
-        return false;
-      }
-    },
-  });
-
-  if (!authenticated) {
-    // If not authenticated, redirect to login page
-    return NextResponse.redirect(new URL("/auth/sign-in", request.url));
   }
 };
 
