@@ -1,6 +1,6 @@
 # My Vibe Coding Adventure: Building a Note-Taking App with AI
 
-Read my [blog article](https://nexflow.it/de-DE/blog/vibe-coding-adventure) on my vibe coding experience.
+Read my [blog article](https://nexflow.it/blog/vibe-coding-adventure) on my vibe coding experience.
 
 Use [this prompt example as a starting point to build your Product Design Document](docs/prompts-vibe-coding/prompt-pdd.txt).
 
