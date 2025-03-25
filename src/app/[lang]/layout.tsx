@@ -19,7 +19,7 @@ const LangLayout: FC<LangLayoutProps> = async ({ children, params }) => {
       <div className="mb-4 flex w-full flex-1 flex-col px-2 md:mb-8 md:px-8 lg:w-[64rem] lg:px-16">
         <main className="w-full flex-1 py-4 sm:py-6 md:py-8">{children}</main>
 
-        <Footer {...{ lang }} />
+        <Footer />
       </div>
     </div>
   );

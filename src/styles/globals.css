@@ -38,7 +38,7 @@
   }
 
   body {
-    @apply bg-background dark:bg-foreground text-foreground dark:text-background;
+    @apply bg-background text-foreground dark:bg-foreground dark:text-background;
     font-size: 20px;
   }
 
@@ -47,7 +47,7 @@
   h3,
   h4,
   h5 {
-    @apply font-sans py-2 font-semibold;
+    @apply py-2 font-sans font-semibold;
   }
   h1 {
     @apply text-3xl sm:text-4xl;
@@ -65,29 +65,14 @@
     @apply sm:text-lg;
   }
 
-  .legal-layout {
-    p {
-      @apply text-base py-2;
-    }
-    ul {
-      @apply list-disc list-inside text-base py-2;
-    }
-    li {
-      @apply py-0.5;
-    }
-    ol {
-      @apply list-decimal list-inside text-base py-2;
-    }
-  }
-
   main * a {
-    @apply pb-[0.1rem] relative hover:text-theme hover:brightness-[0.65] dark:hover:brightness-100 saturate-200 dark:saturate-100 cursor-pointer;
+    @apply relative cursor-pointer pb-[0.1rem] saturate-200 hover:text-theme hover:brightness-[0.65] dark:saturate-100 dark:hover:brightness-100;
   }
   [data-theme="work"] main * a:hover {
-    @apply brightness-75 dark:brightness-100 saturate-100;
+    @apply brightness-75 saturate-100 dark:brightness-100;
   }
   main * a::after {
-    @apply absolute left-0 bottom-0 w-full h-1 bg-black dark:bg-white content-[''];
+    @apply absolute bottom-0 left-0 h-1 w-full bg-black content-[''] dark:bg-white;
   }
   main * a:hover::after {
     @apply bg-theme dark:bg-theme;

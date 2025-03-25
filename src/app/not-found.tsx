@@ -30,7 +30,7 @@ const NotFoundPage = () => {
           />
         </main>
 
-        <Footer {...{ lang }} />
+        <Footer />
       </div>
     </div>
   );
